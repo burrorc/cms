@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous" />
+
+<title>Add/Update Vehicle</title>
+</head>
+<body>
+<div class="container">
+<h3>Vehicle Directory</h3>
+<hr>
+<form action="#" th:action="@{/employees/addUpdate}"
+	th:object="${vehicle}" method="POST">
+	<input type="text" th:field="*{plate}"
+	class="form-control mb-4 col-4" placeholder="Plate Number">
+	<input type="text" th:field="*{make}"
+	class="form-control mb-4 col-4" placeholder="Make">
+	<input type="text" th:field="*{model}"
+	class="form-control mb-4 col-4" placeholder="Model">
+	<input type="text" th:field="*{year}"
+	class="form-control mb-4 col-4" placeholder="Year">
+	</form>
+</div>
+</body>
+</html>

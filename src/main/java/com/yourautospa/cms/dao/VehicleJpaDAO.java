@@ -1,11 +1,10 @@
-package com.yourautospa.cms.service;
+package com.yourautospa.cms.dao;
 
 import java.util.List;
 
 import com.yourautospa.cms.entity.Vehicle;
 
-public interface VehicleService {
-
+public interface VehicleJpaDAO {
 	public List<Vehicle> findAll();
 	
 	public Vehicle findById(String theId);

@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yourautospa.cms.dao.VehicleDAO;
+import com.yourautospa.cms.dao.VehicleJpaDAO;
 import com.yourautospa.cms.entity.Vehicle;
 
 @Service
-public class VehicleServiceImpl implements VehicleService {
+public class VehicleJpaServiceImpl implements VehicleJpaService {
 
-	private VehicleDAO vehicleDAO;
+	private VehicleJpaDAO vehicleDAO;
 	
 	@Autowired
-	public VehicleServiceImpl(VehicleDAO theVehicleDAO) {
+	public VehicleJpaServiceImpl(VehicleJpaDAO theVehicleDAO) {
 		vehicleDAO = theVehicleDAO;
 	}
 

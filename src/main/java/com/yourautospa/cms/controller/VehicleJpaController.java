@@ -1,4 +1,4 @@
-package com.yourautospa.cms.rest;
+package com.yourautospa.cms.controller;
 
 import java.util.List;
 
@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yourautospa.cms.entity.Vehicle;
-import com.yourautospa.cms.service.VehicleService;
+import com.yourautospa.cms.service.VehicleJpaService;
 
 @RestController
-@RequestMapping("/")
-public class VehicleController {
+@RequestMapping("/jpa")
+public class VehicleJpaController {
 
-	private VehicleService vehicleService;
+	private VehicleJpaService vehicleService;
 
 	// dirty injection
 	@Autowired
-	public VehicleController(VehicleService theVehicleService) {
+	public VehicleJpaController(VehicleJpaService theVehicleService) {
 		vehicleService = theVehicleService;
 	}
 

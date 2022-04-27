@@ -1,0 +1,131 @@
+html {
+      min-width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      /* width: 720px;
+      height: 1280px; */
+      position: relative;
+      background-color: lightgray;
+    }
+
+    .header {
+      background-color: #010165;
+      color: white;
+      width: 100%;
+      padding: 0px;
+    }
+
+    #userSelect {
+      width: 100%;
+      border: 0;
+      font-size: 1em;
+      font-weight: bolder;
+      height: 100%;
+      color: white;
+    }
+
+    #plateLookupInput {
+      border: 0;
+      font-size: 1.5em;
+    }
+
+    #plateLookupSubmit {
+      width: 100%;
+      border: 0;
+      font-size: 1.5em;
+      font-weight: bolder;
+    }
+
+    #clientName {
+      width: 100%;
+      font-size: 1.5em;
+      font-weight: bolder;
+      background-color: #010165;
+      padding: 0px;
+      color: white;
+    }
+
+    #clientHistory {
+      background-color: lightgrey;
+      font-size: 1em;
+    }
+
+    .menuHeader {
+      background-color: #010165;
+      color: white;
+      font-size: 1.5em;
+      font-weight: bolder;
+    }
+
+    #clearForm {
+      width: 100%;
+      border: 0;
+      font-size: 1.5em;
+      font-weight: bolder;
+    }
+
+    .footer {
+      background-color: #010165;
+      color: white;
+      width: 100%;
+      padding: 0px;
+    }
+
+    #currentOrder {
+      background-color: lightgrey;
+      font-size: 1.25em;
+    }
+
+    .total {
+      background-color: #010165;
+      color: white;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .top {
+      height: 2em;
+      background-color: #010165;
+    }
+
+    .myFooter {
+      position: fixed;
+      bottom: 0;
+    }
+
+    .modalHeader {
+      background-color: #010165;
+      font-size: 3em;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .sizeSelect {
+      font-size: 2em;
+      font-weight: bolder;
+      color: #010165;
+      border: 2px solid #010165;
+      width: 100%;
+    }
+
+    .sizeSelect:hover {
+      background-color: lightslategray;
+      color: white;
+    }
+
+    .sizeSelectCheck:checked {
+      background-color: lightslategray;
+      color: white;
+    }
+
+    .sizeSelectCheck:checked~.sizeSelect {
+      background-color: lightslategray;
+      color: white;
+    }
+
+    .sizeSelectCheck {
+      border: none;
+    }

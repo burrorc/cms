@@ -3,20 +3,22 @@ package com.yourautospa.cms.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yourautospa.cms.entity.Vehicle;
 
 @Repository
-public class VehicleDAOImpl implements VehicleDAO {
+public class VehicleJpaDAOImpl implements VehicleJpaDAO {
 
 	private EntityManager entityManager;
 	
 	@Autowired
-	public VehicleDAOImpl(EntityManager theEntityManager) {
+	public VehicleJpaDAOImpl(EntityManager theEntityManager) {
 		entityManager = theEntityManager;
 	}
 	
@@ -24,8 +26,10 @@ public class VehicleDAOImpl implements VehicleDAO {
 	//@Transactional
 	public List<Vehicle> findAll() {
 
-		Query theQuery =
-				entityManager.createQuery("from Vehicle");
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		Query<Vehicle> theQuery =
+				currentSession.createQuery("from Vehicle", Vehicle.class);
 		
 		List<Vehicle> vehicles = theQuery.getResultList();
 		
@@ -34,27 +38,28 @@ public class VehicleDAOImpl implements VehicleDAO {
 
 	@Override
 	public Vehicle findById(String theId) {
-		
+		Session currentSession = entityManager.unwrap(Session.class);
+
 		Vehicle theVehicle =
-				entityManager.find(Vehicle.class, theId);
+				currentSession.get(Vehicle.class, theId);
 		
 		return theVehicle;
 	}
 
 	@Override
 	public void save(Vehicle theVehicle) {
-		Vehicle dbVehicle = entityManager.merge(theVehicle);
+		Session currentSession = entityManager.unwrap(Session.class);
 
-		//might need this
-		theVehicle.setPlate(dbVehicle.getPlate());
+		currentSession.saveOrUpdate(theVehicle);
 		
 	}
 
 	@Override
 	public void deleteById(String theId) {
-		
+		Session currentSession = entityManager.unwrap(Session.class);
+
 		Query theQuery =
-				entityManager.createQuery("delete from Vehicle where id=:vehicleId");
+				currentSession.createQuery("delete from Vehicle where id=:vehicleId");
 		
 		theQuery.setParameter("vehicleId", theId);
 		
