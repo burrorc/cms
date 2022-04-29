@@ -25,14 +25,18 @@ public class Vehicle {
 	@Column(name="customer_id")
 	private int customerId;
 	
-	@Column(name="subscription", columnDefinition="TINYINT(1)")
-	private boolean subscription;
+	//@Column(name="subscription")
+	private int subscription;
 	
 	public Vehicle() {
 		
 	}
+	
+	public Vehicle(String plate) {
+		this.plate = plate;
+	}
 
-	public Vehicle(String plate, String make, String model, int year, int customerId, boolean subscription) {
+	public Vehicle(String plate, String make, String model, int year, int customerId, int subscription) {
 		this.plate = plate;
 		this.make = make;
 		this.model = model;
@@ -81,11 +85,11 @@ public class Vehicle {
 		this.customerId = customerId;
 	}
 
-	public boolean isSubscription() {
+	public int getSubscription() {
 		return subscription;
 	}
 
-	public void setSubscription(boolean subscription) {
+	public void setSubscription(int subscription) {
 		this.subscription = subscription;
 	}
 

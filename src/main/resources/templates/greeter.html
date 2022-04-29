@@ -31,14 +31,19 @@
   <div class="container-fluid header">
     <form>
       <div class="row">
+      <form action="#" th:action="@{/greeter/save}"
+	th:object="${vehicle}" method="POST">
+	<!-- <input type="text" field="*{plate}"
+	class="form-control mb-4 col-4" placeholder="Plate Number"> -->
         <div class="col px-0">
-          <input type="text" class="form-control rounded-0" id="plateLookupInput" value="GA XYZ1324" />
+          <input type="text" th:field="*{plate}" class="form-control rounded-0" id="plateLookupInput" value="GA" />
         </div>
         <div class="col" style="padding-left: 0px">
-          <button class="btn btn-success rounded-0" id="plateLookupSubmit">
+          <button type="submit" class="btn btn-success rounded-0" id="plateLookupSubmit">
             Add Car
           </button>
         </div>
+        </form>
       </div>
     </form>
   </div>

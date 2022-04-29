@@ -14,8 +14,8 @@
 	<div class="container">
 		<h2>Vehicle List</h2>
 		<hr>
-		<a th:href="@{/employees/addUpdate}"
-			class="btn btn-primary btn-sm mb-3"> Add Employee</a>
+		<a th:href="@{/vehicles/addForm}"
+			class="btn btn-primary btn-sm mb-3"> Add Vehicle</a>
 		<table class="table table-bordered table-striped">
 			<thead class="thead-dark">
 				<tr>
@@ -25,6 +25,7 @@
 					<th>Year</th>
 					<th>Customer</th>
 					<th>Subscription</th>
+					<th>Action</th>
 
 				</tr>
 			</thead>
@@ -36,6 +37,16 @@
 					<td th:text="${tempVehicle.year}" />
 					<td th:text="${tempVehicle.customerId}" />
 					<td th:text="${tempVehicle.subscription}" />
+					<td>
+						<a th:href="@{/vehicles/updateForm(vehiclePlate=${tempVehicle.plate})}"
+						class="btn btn-info btn-sm">
+						Update</a>
+					
+						<a th:href="@{/vehicles/delete(vehiclePlate=${tempVehicle.plate})}"
+						class="btn btn-danger btn-sm"
+						onclick="if (!(confirm('Are you sure you want to delete this vehicle?'))) return false">
+						Delete</a>
+					</td>
 
 				</tr>
 			</tbody>

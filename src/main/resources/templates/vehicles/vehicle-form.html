@@ -12,17 +12,35 @@
 <div class="container">
 <h3>Vehicle Directory</h3>
 <hr>
-<form action="#" th:action="@{/employees/addUpdate}"
+<form action="#" th:action="@{/vehicles/save}"
 	th:object="${vehicle}" method="POST">
+	
+	<!-- Add hidden form field to handle update 
+	<input type="hidden" th:field="*{id}" />
+	-->
+	
 	<input type="text" th:field="*{plate}"
 	class="form-control mb-4 col-4" placeholder="Plate Number">
-	<input type="text" th:field="*{make}"
+	<!--  --><input type="text" th:field="*{make}"
 	class="form-control mb-4 col-4" placeholder="Make">
 	<input type="text" th:field="*{model}"
 	class="form-control mb-4 col-4" placeholder="Model">
 	<input type="text" th:field="*{year}"
 	class="form-control mb-4 col-4" placeholder="Year">
+	<input type="text" th:field="*{customerId}"
+	class="form-control mb-4 col-4" placeholder="Customer Name">
+	<input type="text" th:field="*{subscription}"
+	class="form-control mb-4 col-4" placeholder="Subscription" value="">
+	
+	  <button type="submit" class="btn btn-info col-2">Save</button>
+	  
 	</form>
+	
+<hr>
+
+<a th:href="@{/vehicles/list}">Back to Vehicle List</a>	
+ 
 </div>
+ 
 </body>
 </html>
