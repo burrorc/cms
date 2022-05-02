@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
+import com.yourautospa.cms.entity.Order;
+import com.yourautospa.cms.entity.Product;
 import com.yourautospa.cms.entity.Vehicle;
-import com.yourautospa.cms.entity.Wash;
+import com.yourautospa.cms.service.OrderService;
+import com.yourautospa.cms.service.ProductService;
 import com.yourautospa.cms.service.VehicleService;
-import com.yourautospa.cms.service.WashService;
 
 @Controller
 @RequestMapping("/greeter")
@@ -23,50 +26,71 @@ public class GreeterController {
 	private VehicleService vehicleService;
 	
 	@Autowired
-	private WashService washService;
+	private ProductService productService;
+	
+	@Autowired
+	private OrderService orderService;
 
 
 	@GetMapping("/order")
 	public String greeter(Model theModel) {
 		Vehicle theVehicle = new Vehicle();
-		Wash theWash = new Wash();
-		List<Wash> theWashes = washService.findAll();
+		Product theProduct = new Product();
+		Order theOrder = new Order();
+		List<Product> theWashes = productService.findBySubscriptionFalseAndWashTrue();
+		List<Product> theExtras = productService.findByExtraTrue();
 		
 			theVehicle.setPlate("GA");
 		
 		
 		
 		theModel.addAttribute("vehicle", theVehicle);
-		theModel.addAttribute("washes", theWashes);
-		theModel.addAttribute("wash", theWash);
+		theModel.addAttribute("products", theWashes);
+		theModel.addAttribute("product", theProduct);
+		theModel.addAttribute("extras", theExtras);
+		theModel.addAttribute("order", theOrder);
 
 		return "greeter/orderForm";
 	}
-
-//	@GetMapping("/lookupVehicle")
-//	public String lookupVehicle(@RequestParam("vehiclePlate")String theId,
-//							Model theModel){
-//		
-//		Vehicle theVehicle = vehicleService.findById(theId);
-//		
-//		theModel.addAttribute("vehicle", theVehicle);
-//		
-//		return "vehicles/vehicle-form";
-//	}
 
 	@PostMapping("/addCar")
 	public String saveVehicle(@ModelAttribute("vehicle") Vehicle theVehicle, Model theModel) {
 		String thePlate = theVehicle.getPlate();
 		Vehicle tempVehicle = vehicleService.findOrAdd(thePlate);
-		Wash tempWash = washService.findById(tempVehicle.getSubscription());
-		List<Wash> theWashes = washService.findAll();
+		Product tempProduct = productService.findById(tempVehicle.getSubscription());
+		List<Product> theWashes = productService.findBySubscriptionFalseAndWashTrue();
+		List<Product> theExtras = productService.findByExtraTrue();
+		Order theOrder = new Order();
+		
 		
 	vehicleService.save(tempVehicle);
 	theModel.addAttribute(tempVehicle);
-	theModel.addAttribute(tempWash);
-	theModel.addAttribute("washes", theWashes);
+	theModel.addAttribute(tempProduct);
+	theModel.addAttribute("products", theWashes);
+	theModel.addAttribute("extras", theExtras);
+	theModel.addAttribute(theOrder);
 	
 	return "greeter/orderForm";
+	
+	}
+	
+	@PostMapping("/createOrder")
+	public String createOrder(@ModelAttribute("order") Order theOrder, Model theModel) {
+		orderService.save(theOrder);
+//		Product tempProduct = productService.findById(tempVehicle.getSubscription());
+//		List<Product> theProducts = productService.findAll();
+//		List<Extra> theExtras = extraService.findAll();
+//		Order theOrder = new Order();
+//		
+//		
+//	vehicleService.save(tempVehicle);
+//	theModel.addAttribute(tempVehicle);
+//	theModel.addAttribute(tempProduct);
+//	theModel.addAttribute("products", theProducts);
+//	theModel.addAttribute("extras", theExtras);
+//	theModel.addAttribute(theOrder);
+	
+	return "redirect:/greeter/order";
 	
 	}
 //	@PostMapping("/addCar")

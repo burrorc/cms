@@ -8,14 +8,14 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous" />
 
-<title>Wash List</title>
+<title>Extra List</title>
 </head>
 <body>
 	<div class="container">
-		<h2>Wash List</h2>
+		<h2>Extra List</h2>
 		<hr>
-		<a th:href="@{/washes/addForm}"
-			class="btn btn-primary btn-sm mb-3"> Add Wash</a>
+		<a th:href="@{/extras/addForm}"
+			class="btn btn-primary btn-sm mb-3"> Add Extra</a>
 		<table class="table table-bordered table-striped">
 			<thead class="thead-dark">
 				<tr>
@@ -27,18 +27,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="tempWash : ${washes}">
-					<td th:text="${tempWash.id}" />
-					<td th:text="${tempWash.name}" />
-					<td th:text="${tempWash.price}" />
+				<tr th:each="tempExtra : ${extras}">
+					<td th:text="${tempExtra.id}" />
+					<td th:text="${tempExtra.name}" />
+					<td th:text="${tempExtra.price}" />
 					<td>
-						<a th:href="@{/washes/updateForm(washId=${tempWash.id})}"
+						<a th:href="@{/extras/updateForm(extraId=${tempExtra.id})}"
 						class="btn btn-info btn-sm">
 						Update</a>
 					
-						<a th:href="@{/washes/delete(washId=${tempWash.id})}"
+						<a th:href="@{/extras/delete(extraId=${tempExtra.id})}"
 						class="btn btn-danger btn-sm"
-						onclick="if (!(confirm('Are you sure you want to delete this wash?'))) return false">
+						onclick="if (!(confirm('Are you sure you want to delete this extra?'))) return false">
 						Delete</a>
 					</td>
 

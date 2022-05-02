@@ -7,6 +7,17 @@
 	crossorigin="anonymous" />
 
 <title>Add/Update Vehicle</title>
+<style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+  
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -20,15 +31,15 @@
 	-->
 	
 	<input type="text" th:field="*{plate}"
-	class="form-control mb-4 col-4" placeholder="Plate Number">
+	class="form-control mb-4 col-4" placeholder="Plate Number" oninput="this.value = this.value.toUpperCase()">
 	<!--  --><input type="text" th:field="*{make}"
-	class="form-control mb-4 col-4" placeholder="Make">
+	class="form-control mb-4 col-4" placeholder="Make" oninput="this.value = this.value.toUpperCase()">
 	<input type="text" th:field="*{model}"
-	class="form-control mb-4 col-4" placeholder="Model">
-	<input type="text" th:field="*{year}"
+	class="form-control mb-4 col-4" placeholder="Model" oninput="this.value = this.value.toUpperCase()">
+	<input type="number" th:field="*{year}"
 	class="form-control mb-4 col-4" placeholder="Year">
 	<input type="text" th:field="*{customerId}"
-	class="form-control mb-4 col-4" placeholder="Customer Name">
+	class="form-control mb-4 col-4" placeholder="Customer Name" oninput="this.value = this.value.toUpperCase()">
 	<input type="text" th:field="*{subscription}"
 	class="form-control mb-4 col-4" placeholder="Subscription" value="">
 	

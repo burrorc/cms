@@ -9,13 +9,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="wash")
-public class Wash {
+@Table(name="product")
+public class Product {
 	
 	@Id
 	@Column(name="id")
@@ -27,24 +26,35 @@ public class Wash {
 	@Column(name="price")
 	private BigDecimal price;
 	
+	@Column(name="subscription")
+	private boolean subscription;
+	
+	@Column(name="wash")
+	private boolean wash;
+	
+	@Column(name="extra")
+	private boolean extra;
+	
+	@Column(name="lobby")
+	private boolean lobby;
+	
 	@OneToMany(fetch=FetchType.LAZY, 
 			mappedBy="subscription",
 			cascade= {CascadeType.DETACH,
 			CascadeType.MERGE,
 			CascadeType.PERSIST,
 			CascadeType.REFRESH})
-	//@JoinColumn(name="subscription")
 	private List<Vehicle> vehicles;
 	
-	public Wash() {
+	public Product() {
 		
 	}
 	
-	public Wash(int id) {
+	public Product(int id) {
 		this.id = id;
 	}
 
-	public Wash(int id, String name, BigDecimal price) {
+	public Product(int id, String name, BigDecimal price) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
@@ -91,9 +101,41 @@ public class Wash {
 		vehicles.add(theVehicle);
 	}
 	
+	public boolean isSubscription() {
+		return subscription;
+	}
+
+	public void setSubscription(boolean subscription) {
+		this.subscription = subscription;
+	}
+
+	public boolean isWash() {
+		return wash;
+	}
+
+	public void setWash(boolean wash) {
+		this.wash = wash;
+	}
+
+	public boolean isExtra() {
+		return extra;
+	}
+
+	public void setExtra(boolean extra) {
+		this.extra = extra;
+	}
+
+	public boolean isLobby() {
+		return lobby;
+	}
+
+	public void setLobby(boolean lobby) {
+		this.lobby = lobby;
+	}
+
 	@Override
 	public String toString() {
-		return "Wash [id=" + id + ", name=" + name + ", price=" + price + "]";
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + "]";
 	}
 
 	

@@ -6,25 +6,23 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous" />
 
-<title>Add/Update Wash</title>
+<title>Add/Update Order</title>
 </head>
 <body>
 <div class="container">
-<h3>Wash Directory</h3>
+<h3>Order Directory</h3>
 <hr>
-<form action="#" th:action="@{/washes/save}"
-	th:object="${wash}" method="POST">
+<form action="#" th:action="@{/orders/save}"
+	th:object="${order}" method="POST">
 	
 	<!-- Add hidden form field to handle update 
 	<input type="hidden" th:field="*{id}" />
 	-->
 	
 	<input type="text" th:field="*{id}"
-	class="form-control mb-4 col-4" placeholder="Wash Number">
+	class="form-control mb-4 col-4" placeholder="Order Number">
 	<input type="text" th:field="*{name}"
-	class="form-control mb-4 col-4" placeholder="Name">
-	<input type="text" th:field="*{price}"
-	class="form-control mb-4 col-4" placeholder="Price">
+	class="form-control mb-4 col-4" placeholder="Name" oninput="this.value = this.value.toUpperCase()">
 	
 	  <button type="submit" class="btn btn-info col-2">Save</button>
 	  
@@ -32,7 +30,7 @@
 	
 <hr>
 
-<a th:href="@{/washes/list}">Back to Vehicle List</a>	
+<a th:href="@{/orders/list}">Back to Vehicle List</a>	
  
 </div>
  
