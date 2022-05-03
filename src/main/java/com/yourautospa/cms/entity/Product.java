@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -46,12 +47,19 @@ public class Product {
 			CascadeType.REFRESH})
 	private List<Vehicle> vehicles;
 	
+	@ManyToMany(mappedBy = "products")
+    private List<Order> orders;
+	
 	public Product() {
+		if (orders == null)
+            orders = new ArrayList<>();
 		
 	}
 	
 	public Product(int id) {
 		this.id = id;
+		if (orders == null)
+            orders = new ArrayList<>();
 	}
 
 	public Product(int id, String name, BigDecimal price) {
@@ -131,6 +139,14 @@ public class Product {
 
 	public void setLobby(boolean lobby) {
 		this.lobby = lobby;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	@Override

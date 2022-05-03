@@ -24,6 +24,10 @@ public interface ProductService {
 	public List<Product> findByLobbyTrue();
 
 	public List<Product> findBySubscriptionFalseAndWashTrue();
+	
+	public List<Product> findBySubscriptionFalseAndWashTrueOrExtraTrue();
+	
+	public boolean existsById(int i);
 
 	// public Subscription findOrAdd(String theId);
 }

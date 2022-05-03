@@ -17,5 +17,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	public List<Product> findByLobbyTrue();
 	
 	public List<Product> findBySubscriptionFalseAndWashTrue();
+	
+	public List<Product> findBySubscriptionFalseAndWashTrueOrExtraTrue();
 
 }

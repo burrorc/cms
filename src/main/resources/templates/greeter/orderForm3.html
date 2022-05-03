@@ -108,12 +108,12 @@
 				<th:block th:each="tunnelItem: ${tunnelItems}">
 					<div th:if="${tunnelItem.wash}" class="row" >
 						<div class="col px-0">
-						
-							<input type="radio" class="sizeSelectCheck"
+							<input type="radio" class="btn-check sizeSelectCheck"
 							
-								name="orderItems" th:value="${tunnelItem.id}" th:id="'tunnelItem' + ${tunnelItem.id}"/> <label
-								th:for="'tunnelItem' + ${tunnelItem.id}"
-								class="btn sizeSelect rounded-0 shadow-none px-0">
+								name="orderItems" th:id="'tunnelItem' + ${tunnelItem.id}"
+								autocomplete="off" /> <label
+								class="btn sizeSelect rounded-0 shadow-none px-0"
+								th:for="'tunnelItem' + ${tunnelItem.id}">
 								<div class="d-flex justify-content-between">
 									<div class="px-3" th:text="${tunnelItem.name}"></div>
 									<div class="px-3" th:text="${tunnelItem.price}"></div>
@@ -157,9 +157,11 @@
 				<th:block th:each="tunnelItem: ${tunnelItems}">
 					<div th:if="${tunnelItem.extra}" class="row">
 						<div class="col px-0">
-							<input type="checkbox" class="btn-check sizeSelectCheck"
-								name="orderItems" th:value="${tunnelItem.id}" th:id="'tunnelItem' + ${tunnelItem.id}"/> <label
-								class="btn sizeSelect rounded-0 shadow-none px-0" th:for="'tunnelItem' + ${tunnelItem.id}">
+							<input type="radio" class="btn-check sizeSelectCheck"
+								name="orderItems" th:id="'tunnelItem' + ${tunnelItem.id}"
+								autocomplete="off" /> <label
+								class="btn sizeSelect rounded-0 shadow-none px-0"
+								th:for="'tunnelItem' + ${tunnelItem.id}">
 								<div class="d-flex justify-content-between">
 									<div class="px-3" th:text="${tunnelItem.name}"></div>
 									<div class="px-3" th:text="${tunnelItem.price}"></div>

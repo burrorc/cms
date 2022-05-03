@@ -83,6 +83,18 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findBySubscriptionFalseAndWashTrue();
 	}
 
+	@Override
+	public List<Product> findBySubscriptionFalseAndWashTrueOrExtraTrue() {
+		// TODO Auto-generated method stub
+		return productRepository.findBySubscriptionFalseAndWashTrueOrExtraTrue();
+	}
+
+	@Override
+	public boolean existsById(int theId) {
+		// TODO Auto-generated method stub
+		return productRepository.existsById(theId);
+	}
+
 	
 
 	
