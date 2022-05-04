@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.yourautospa.cms.entity.Customer;
 import com.yourautospa.cms.entity.Order;
 import com.yourautospa.cms.entity.Product;
 import com.yourautospa.cms.entity.Vehicle;
+import com.yourautospa.cms.service.CustomerService;
 import com.yourautospa.cms.service.OrderService;
 import com.yourautospa.cms.service.ProductService;
 import com.yourautospa.cms.service.VehicleService;
@@ -31,38 +33,45 @@ public class GreeterController {
 
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private CustomerService customerService;
 
 	@GetMapping("/order")
 	public String greeter(Model theModel) {
 		Vehicle theVehicle = new Vehicle();
-		Product theProduct = new Product();
-		Order theOrder = new Order();
-		List<Product> tunnelItems = productService.findBySubscriptionFalseAndWashTrueOrExtraTrue();
 		theVehicle.setPlate("GA");
 
 		theModel.addAttribute("vehicle", theVehicle);
-		theModel.addAttribute("product", theProduct);
-		theModel.addAttribute("order", theOrder);
-		theModel.addAttribute("tunnelItems", tunnelItems);
 
 		return "greeter/orderForm";
 	}
 
 	@PostMapping("/addCar")
 	public String saveVehicle(@ModelAttribute("vehicle") Vehicle theVehicle, Model theModel) {
+		Customer tempCustomer;
 		String thePlate = theVehicle.getPlate();
+		if(thePlate.equals("GA")) {
+			return "redirect:/greeter/order";
+		}
 		Vehicle tempVehicle = vehicleService.findOrAdd(thePlate);
 		Product tempProduct = productService.findById(tempVehicle.getSubscription());
+		int customerId = tempVehicle.getCustomerId();
+		
+		if(customerId != 0) {
+			tempCustomer = customerService.findById(customerId);
+		}else {
+			tempCustomer = new Customer();
+		}
+		
 		List<Product> tunnelItems = productService.findBySubscriptionFalseAndWashTrueOrExtraTrue();
-//		List<Product> theWashes = productService.findBySubscriptionFalseAndWashTrue();
-//		List<Product> theExtras = productService.findByExtraTrue();
 		Order theOrder = new Order();
 
 		vehicleService.save(tempVehicle);
+		
+		theModel.addAttribute(tempCustomer);
 		theModel.addAttribute(tempVehicle);
 		theModel.addAttribute(tempProduct);
-//		theModel.addAttribute("products", theWashes);
-//		theModel.addAttribute("extras", theExtras);
 		theModel.addAttribute("tunnelItems", tunnelItems);
 		theModel.addAttribute(theOrder);
 
@@ -148,11 +157,5 @@ public class GreeterController {
 	@GetMapping("/clear")
 	public String clear(Model theModel) {
 		return "redirect:/greeter/order";
-//		Vehicle theVehicle = new Vehicle();
-//		theVehicle.setPlate("GA");
-//		
-//		theModel.addAttribute("vehicle", theVehicle);
-//
-//		return "greeter/orderForm";
 	}
 }

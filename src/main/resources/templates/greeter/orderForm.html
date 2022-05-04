@@ -56,10 +56,12 @@
 			</div>
 		</form>
 	</div>
+	<div th:unless="${order}" style="height: 100%">Something Here</div>
+	<div th:if="${order}" >
 	<div class="container-fluid" id="clientName">
 
 		<p class="text-center mb-0 header"
-			th:text="${vehicle.customerId} == 0 ? 'UNKNOWN' : 'CUSTOMER'+${vehicle.customerId}" />
+			th:text="${vehicle.customerId} == 0 ? 'UNKNOWN' : ${customer.firstName}+' '+${customer.lastName}" />
 	</div>
 	<div class="container-fluid" id="clientHistory">
 		<table class="table mb-0" th:object="${product}">
@@ -74,7 +76,7 @@
 				</tr>
 				<tr class="previousOrder">
 					<td>LAST VISIT</td>
-					<td style="float: right">03/21/22</td>
+					<td style="float: right">FIX THIS BY CONNECTING THE TABLES</td>
 				</tr>
 			</tbody>
 		</table>
@@ -115,8 +117,8 @@
 								th:for="'tunnelItem' + ${tunnelItem.id}"
 								class="btn sizeSelect rounded-0 shadow-none px-0">
 								<div class="d-flex justify-content-between">
-									<div class="px-3" th:text="${tunnelItem.name}"></div>
-									<div class="px-3" th:text="${tunnelItem.price}"></div>
+									<div class="px-3 item" th:text="${tunnelItem.name}"></div>
+									<div class="px-3 price" th:text="${tunnelItem.price}"></div>
 
 								</div>
 							</label>
@@ -128,19 +130,13 @@
 				<div class="modal-footer">
 					<div class="container-fluid px-0">
 						<div class="row">
-							<div class="col-6 px-0">
-								<a id="clearForm" class="btn btn-danger rounded-0 " href="#"
-									role="button" data-dismiss="modal">Cancel</a>
-							</div>
-							<div class="col-6 px-0">
+							<div class="col px-0">
 								<a id="clearForm" class="btn btn-success rounded-0 clearCreateOrder" href="#"
-									role="button" data-dismiss="modal">Add Wash</a>
+									role="button" data-dismiss="modal">Add/Edit Washes</a>
 							</div>
 						</div>
 					</div>
 
-					<!-- <button type="button" class="btn btn-primary">Save changes</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
 				</div>
 			</div>
 		</div>
@@ -161,8 +157,8 @@
 								name="orderItems" th:value="${tunnelItem.id}" th:id="'tunnelItem' + ${tunnelItem.id}"/> <label
 								class="btn sizeSelect rounded-0 shadow-none px-0" th:for="'tunnelItem' + ${tunnelItem.id}">
 								<div class="d-flex justify-content-between">
-									<div class="px-3" th:text="${tunnelItem.name}"></div>
-									<div class="px-3" th:text="${tunnelItem.price}"></div>
+									<div class="px-3 item" th:text="${tunnelItem.name}"></div>
+									<div class="px-3 price" th:text="${tunnelItem.price}"></div>
 
 								</div>
 							</label>
@@ -173,13 +169,9 @@
 				<div class="modal-footer">
 					<div class="container-fluid px-0">
 						<div class="row">
-							<div class="col-6 px-0">
-								<a id="clearForm" class="btn btn-danger rounded-0 clearCreateOrder" href="#"
-									role="button" data-dismiss="modal">Cancel</a>
-							</div>
-							<div class="col-6 px-0">
+							<div class="col px-0">
 								<a id="clearForm" class="btn btn-success rounded-0 clearCreateOrder" href="#"
-									role="button" data-dismiss="modal">Add Extras</a>
+									role="button" data-dismiss="modal">Add/Edit Extras</a>
 							</div>
 						</div>
 					</div>
@@ -189,10 +181,6 @@
 		 
 	</div>
 
-	
-	<!-- <form action="#" th:action="@{/greeter/createOrder}"
-	th:object="${order}" method="POST">
-	 -->
 	<div class="container-fluid" id="currentOrder">
 		
 	<!-- Add hidden form field to handle update--> 
@@ -200,34 +188,25 @@
 	<input type="hidden" th:name="plate" th:value="${order.plate != null} ? ${order.plate} : ${vehicle.plate}" />
 	
 			<table class="table mb-0">
-				<tbody>
+				<tbody id="summary">
 					<tr class="currentItems">
-						<td class="text-left" style="border: none;" th:text="${product.name}" />
-						<td style="float: right; border: none;" th:text="${product.price}" />
+						<td class="text-left summaryItem" style="border: none;" th:text="${product.name}" />
+						<td class="summaryPrice" style="float: right; border: none;" th:text="${product.price}" />
 					</tr>
-					<!-- 
-				<tr class="currentItems">
-					<td>Truck</td>
-					<td style="float: right">$15.00</td>
-				</tr>
-				<tr class="currentItems">
-					<td>FloorMats</td>
-					<td style="float: right">$6.00</td>
-				</tr>
-				 -->
+					
 				</tbody>
 			</table>
 		
 	</div>
 	<div class="container-fluid myFooter">
 		<div class="row">
-			<input type="text" placeholder="Add Comments"
+			<input th:field="*{comments}" type="text" placeholder="Add Comments"
 				style="height: 2em; font-size: 1.5em;">
 		</div>
 		<div class="row total">
 			<div class="d-flex justify-content-center">
 				<div style="padding-right: 20px">Total</div>
-				<div style="padding-left: 20px">$21.00</div>
+				<div class="sumPrice" style="padding-left: 20px">0.00</div>
 			</div>
 		</div>
 		<div class="row">
@@ -242,12 +221,40 @@
 		</div>
 	</div>
 	</form>
-
+</div>
 	<script>
 		$("#myModal").on("shown.bs.modal", function() {
 			$("#myInput").trigger("focus");
 		});
 	</script>
+	<script>
+		$(".sizeSelectCheck").click(function(){
+			var item = $(this).siblings('label').find(".item").text()
+			var price = $(this).siblings('label').find(".price").text()
+			var id = item.replace(/\s+/g, '')
+			var summaryRow = "<tr id="+id+" class='currentItems'><td class='text-left summaryItem' style='border: none;'>"+item+"</td><td class='summaryPrice' style='float: right; border: none;'>"+price+"</tr>"
+			var sum = 0
+			if($(this).is(':checked')){
+				console.log("checked")
+				$("#summary").append(summaryRow)
+			}else{
+				console.log(id)
+				$("#" + id).remove()
+				//$("#summary").find("#" + id).remove()
+			}
+			
+		 	$(".summaryPrice").each(function(){
+		 	    
+		 	    sum = sum + parseFloat($(this).text()) 
+		 	    console.log(sum)
+		 	    })
+		 	    
+		 	$(".sumPrice").text(sum)
+		 	
+		 	
+          }) 
+
+      </script>
 
 
 	<script

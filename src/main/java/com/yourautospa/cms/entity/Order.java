@@ -43,6 +43,9 @@ public class Order {
 	@Column(name="payment")
 	private String payment;
 	
+	@Column(name="comments")
+	private String comments;
+	
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "order_items",
             joinColumns = {@JoinColumn(name = "order_id")},
@@ -123,6 +126,14 @@ public class Order {
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 
 	
