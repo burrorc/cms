@@ -13,6 +13,8 @@ public interface OrderService {
 	public void save(Order theOrder);
 
 	public void deleteById(int theId);
+	
+	public Order findFirstByPlateOrderByCreatedOnDesc(String thePlate);
 
 	//public Subscription findOrAdd(String theId);
 }

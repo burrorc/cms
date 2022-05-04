@@ -53,6 +53,12 @@ public class OrderServiceImpl implements OrderService {
 
 	}
 
+	@Override
+	public Order findFirstByPlateOrderByCreatedOnDesc(String thePlate) {
+		// TODO Auto-generated method stub
+		return orderRepository.findFirstByPlateOrderByCreatedOnDesc(thePlate);
+	}
+
 //	@Override
 //	public Wash findOrAdd(String theId) {
 //		Optional<Wash> result = washRepository.findById(theId);

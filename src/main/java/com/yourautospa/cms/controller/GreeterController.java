@@ -1,5 +1,7 @@
 package com.yourautospa.cms.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,17 @@ public class GreeterController {
 	public String saveVehicle(@ModelAttribute("vehicle") Vehicle theVehicle, Model theModel) {
 		Customer tempCustomer;
 		String thePlate = theVehicle.getPlate();
+		Order lastOrder = orderService.findFirstByPlateOrderByCreatedOnDesc(thePlate);
+		String formatedLastDate;
+		if(lastOrder == null) {
+			formatedLastDate = "NO RECORD";
+		}else {
+			LocalDateTime lastDate= lastOrder.getCreatedOn();
+			DateTimeFormatter formated = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+			formatedLastDate = lastDate.format(formated);
+		}
+		
+        
 		if(thePlate.equals("GA")) {
 			return "redirect:/greeter/order";
 		}
@@ -69,6 +82,7 @@ public class GreeterController {
 
 		vehicleService.save(tempVehicle);
 		
+		theModel.addAttribute("lastDate", formatedLastDate);
 		theModel.addAttribute(tempCustomer);
 		theModel.addAttribute(tempVehicle);
 		theModel.addAttribute(tempProduct);
@@ -81,7 +95,8 @@ public class GreeterController {
 
 	@PostMapping("/createOrder")
 	public String createOrder(@ModelAttribute("order") Order theOrder, 
-			@RequestParam(value = "orderItems", required = false) int[] orderItems, BindingResult bindingResult, Model model) {
+			@RequestParam(value = "orderItems", required = false) int[] orderItems, 
+			BindingResult bindingResult, Model model) {
 		
 		if (orderItems != null) {
 			Product product = null;

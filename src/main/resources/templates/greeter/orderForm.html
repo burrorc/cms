@@ -76,7 +76,7 @@
 				</tr>
 				<tr class="previousOrder">
 					<td>LAST VISIT</td>
-					<td style="float: right">FIX THIS BY CONNECTING THE TABLES</td>
+					<td style="float: right" th:text="${lastDate}"/>
 				</tr>
 			</tbody>
 		</table>
@@ -95,7 +95,7 @@
 
 <form action="#" th:action="@{/greeter/createOrder}"
 	th:object="${order}" method="POST">
-	
+	<input th:if="${product.id} != 0" type="hidden" th:name="orderItems" th:value="${product.id}" th:id="'tunnelItem' + ${product.id}" />
 	
 	<div class="modal" tabindex="-1" role="dialog" id="washModal">
 		<!-- <div class="modal-dialog modal-fullscreen" role="document"  style="width: 720px;"> -->
@@ -110,12 +110,20 @@
 				<th:block th:each="tunnelItem: ${tunnelItems}">
 					<div th:if="${tunnelItem.wash}" class="row" >
 						<div class="col px-0">
-						
-							<input type="radio" class="sizeSelectCheck"
-							
+					<!-- 	<input type="checkbox" class="btn-check sizeSelectCheck extra"
 								name="orderItems" th:value="${tunnelItem.id}" th:id="'tunnelItem' + ${tunnelItem.id}"/> <label
-								th:for="'tunnelItem' + ${tunnelItem.id}"
-								class="btn sizeSelect rounded-0 shadow-none px-0">
+								class="btn sizeSelect rounded-0 shadow-none px-0" th:for="'tunnelItem' + ${tunnelItem.id}">
+								<div class="d-flex justify-content-between">
+									<div class="px-3 item" th:text="${tunnelItem.name}"></div>
+									<div class="px-3 price" th:text="${tunnelItem.price}"></div>
+
+								</div>
+							</label>
+							 -->
+							<input type="radio" class="btn-check sizeSelectCheck wash"
+								name="orderItems" th:value="${tunnelItem.id}" th:id="'tunnelItem' + ${tunnelItem.id}"/> <label
+								class="btn sizeSelect rounded-0 shadow-none px-0"
+								th:for="'tunnelItem' + ${tunnelItem.id}">
 								<div class="d-flex justify-content-between">
 									<div class="px-3 item" th:text="${tunnelItem.name}"></div>
 									<div class="px-3 price" th:text="${tunnelItem.price}"></div>
@@ -153,7 +161,7 @@
 				<th:block th:each="tunnelItem: ${tunnelItems}">
 					<div th:if="${tunnelItem.extra}" class="row">
 						<div class="col px-0">
-							<input type="checkbox" class="btn-check sizeSelectCheck"
+							<input type="checkbox" class="btn-check sizeSelectCheck extra"
 								name="orderItems" th:value="${tunnelItem.id}" th:id="'tunnelItem' + ${tunnelItem.id}"/> <label
 								class="btn sizeSelect rounded-0 shadow-none px-0" th:for="'tunnelItem' + ${tunnelItem.id}">
 								<div class="d-flex justify-content-between">
@@ -165,6 +173,7 @@
 						</div>
 					</div>
 					</th:block>
+					
 				</div>
 				<div class="modal-footer">
 					<div class="container-fluid px-0">
@@ -189,7 +198,7 @@
 	
 			<table class="table mb-0">
 				<tbody id="summary">
-					<tr class="currentItems">
+					<tr th:if="${product.id} != 0" class="currentItems">
 						<td class="text-left summaryItem" style="border: none;" th:text="${product.name}" />
 						<td class="summaryPrice" style="float: right; border: none;" th:text="${product.price}" />
 					</tr>
@@ -228,19 +237,26 @@
 		});
 	</script>
 	<script>
+	
+				
 		$(".sizeSelectCheck").click(function(){
 			var item = $(this).siblings('label').find(".item").text()
 			var price = $(this).siblings('label').find(".price").text()
 			var id = item.replace(/\s+/g, '')
-			var summaryRow = "<tr id="+id+" class='currentItems'><td class='text-left summaryItem' style='border: none;'>"+item+"</td><td class='summaryPrice' style='float: right; border: none;'>"+price+"</tr>"
+			var summaryRowWash = "<tr id="+id+" class='currentItems wash'><td class='text-left summaryItem' style='border: none;'>"+item+"</td><td class='summaryPrice' style='float: right; border: none;'>"+price+"</tr>"
+			var summaryRowExtra = "<tr id="+id+" class='currentItems extra'><td class='text-left summaryItem' style='border: none;'>"+item+"</td><td class='summaryPrice' style='float: right; border: none;'>"+price+"</tr>"
+			
 			var sum = 0
-			if($(this).is(':checked')){
-				console.log("checked")
-				$("#summary").append(summaryRow)
+			if($(this).is(':checked')&&$(this).hasClass("wash")){
+				$(".currentItems.wash").remove()
+				console.log("checked wash")
+				$("#summary").prepend(summaryRowWash)
+			}else if($(this).is(':checked')&&$(this).hasClass("extra")){
+				console.log("checked extra")
+				$("#summary").append(summaryRowExtra)
 			}else{
 				console.log(id)
 				$("#" + id).remove()
-				//$("#summary").find("#" + id).remove()
 			}
 			
 		 	$(".summaryPrice").each(function(){

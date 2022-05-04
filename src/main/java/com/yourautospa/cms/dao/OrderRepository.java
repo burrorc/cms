@@ -7,4 +7,6 @@ import com.yourautospa.cms.entity.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
+	public Order findFirstByPlateOrderByCreatedOnDesc(String thePlate);
+
 }
