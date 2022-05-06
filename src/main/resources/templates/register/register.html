@@ -126,6 +126,24 @@ select {
 	font-weight: bold;
 	color: #5959C5;
 }
+.btnCheckOut{
+	border: 2px solid #5959C5;
+	border-radius: 5px;
+	background-color: #5959C5;
+	color: white;
+}
+.btnCheckOut:hover{
+	border: 2px solid #5959C5;
+	background-color:#F8F9FA;
+	color: #5959C5;
+}
+
+.btnCheckOut:focus{
+	border: 2px solid #5959C5;
+	background-color:#F8F9FA;
+	color: #5959C5;
+}
+
 button:focus{
 	outline: none;
 }
@@ -133,6 +151,8 @@ button:focus{
 .option{
 	font-weight: bold;
 }
+
+a.overlay { width: 100%; height:100%;}
 
 </style>
 </head>
@@ -159,27 +179,27 @@ button:focus{
 				<div class="position-sticky pt-3">
 					<ul class="nav flex-column">
 						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="#"> <i
+							aria-current="page" th:href="@{/register/register}"> <i
 								class="fa-solid fa-cash-register"
 								style="width: 30px; text-align: center"></i> Register
 						</a></li>
-						<li class="nav-item"><a class="nav-link" href="#"> <i
+						<li class="nav-item"><a class="nav-link" th:href="@{/orders/list}"> <i
 								class="fa-solid fa-file" style="width: 30px; text-align: center"></i>
 								Orders
 						</a></li>
-						<li class="nav-item"><a class="nav-link" href="#"> <i
+						<li class="nav-item"><a class="nav-link" th:href="@{/products/list}"> <i
 								class="fa-solid fa-boxes-stacked"
 								style="width: 30px; text-align: center"></i> Products
 						</a></li>
-						<li class="nav-item"><a class="nav-link" href="#"> <i
+						<li class="nav-item"><a class="nav-link" th:href="@{/customers/list}"> <i
 								class="fa-solid fa-users"
 								style="width: 30px; text-align: center"></i> Customers
 						</a></li>
-						<li class="nav-item"><a class="nav-link" href="#"> <i
+						<li class="nav-item"><a class="nav-link" th:href="@{/vehicles/list}"> <i
 								class="fa-solid fa-car" style="width: 30px; text-align: center"></i>
 								Vehicles
 						</a></li>
-						<li class="nav-item"><a class="nav-link" href="#"> <i
+						<li class="nav-item"><a class="nav-link" th:href="@{/employees/list}"> <i
 								class="fa-solid fa-users-gear"
 								style="width: 30px; text-align: center"></i> Employees
 						</a></li>
@@ -342,18 +362,18 @@ button:focus{
                             </thead>
                             <tbody style="height: 200px">
                                 <tr th:each="pendingOrder : ${orders}" class="text-center">
-                                    <td th:text="${pendingOrder.createdOn}" />
+                                	<td th:text="${pendingOrder.createdOn}" />
                                     <td th:text="${pendingOrder.name}" />
                                     <td th:text="${pendingOrder.total}" />
-                                    <td>NOT PAID</td>
+                                    <td th:text="${pendingOrder.total}"></td>
                                     <td>
                                         <!-- <a th:href="@{/orders/updateForm(orderId=${tempOrder.id})}" -->
-                                        <a href="#" class="btn btn-info btn-sm"> Update</a> <!-- <a th:href="@{/orders/delete(orderId=${tempOrder.id})}" -->
-                                        <a href="#" class="btn btn-danger btn-sm"
-                                        onclick="if (!(confirm('Are you sure you want to delete this order?'))) return false">
-                                            Delete</a>
+                                        <a th:href="@{/register/findOrder(orderId=${pendingOrder.id})}" class="btn btn-sm btnCheckOut">Check Out</a> <!-- <a th:href="@{/orders/delete(orderId=${tempOrder.id})}" -->
+                                        <a th:href="@{/register/cancelOrder(orderId=${pendingOrder.id})}" class="btn btn-danger btn-sm"
+                                        onclick="if (!(confirm('Are you sure you want to cancel this order?'))) return false">
+                                            Cancel</a>
                                     </td>
-                                </tr>
+                                 </tr>
                             </tbody>
                         </table>
                     </div>

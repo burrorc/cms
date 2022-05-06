@@ -78,10 +78,10 @@ public class RegisterController {
 	
 	@PostMapping("/completeOrder")
 	public String saveVehicle(@ModelAttribute("currentOrder") Order currentOrder) {
-		System.out.println("id"+currentOrder.getId());
-		System.out.println("paid"+currentOrder.getAmountPaid());
-		System.out.println("payment"+currentOrder.getPayment());
-		System.out.println("comments"+currentOrder.getComments());
+//		System.out.println("id"+currentOrder.getId());
+//		System.out.println("paid"+currentOrder.getAmountPaid());
+//		System.out.println("payment"+currentOrder.getPayment());
+//		System.out.println("comments"+currentOrder.getComments());
 		Order thisOrder = orderService.findById(currentOrder.getId());
 		thisOrder.setPayment(currentOrder.getPayment());
 		thisOrder.setAmountPaid(currentOrder.getAmountPaid());
@@ -91,6 +91,15 @@ public class RegisterController {
 	
 	return "redirect:/register/register";
 	
+	}
+	
+	@GetMapping("/cancelOrder")
+	public String cancel(@RequestParam("orderId")int theId) {
+		
+		
+	orderService.deleteById(theId);
+	
+	return "redirect:/register/register";
 	}
 	
 

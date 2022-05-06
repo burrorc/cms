@@ -16,7 +16,7 @@
 	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 	crossorigin="anonymous"></script>
 
-<title>PAS Add/Update Product</title>
+<title>PAS Add/Update Customer</title>
 <style>
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
@@ -187,11 +187,11 @@ a.overlay { width: 100%; height:100%;}
 								class="fa-solid fa-file" style="width: 30px; text-align: center"></i>
 								Orders
 						</a></li>
-						<li class="nav-item"><a class="nav-link active" th:href="@{/products/list}"> <i
+						<li class="nav-item"><a class="nav-link" th:href="@{/products/list}"> <i
 								class="fa-solid fa-boxes-stacked"
 								style="width: 30px; text-align: center"></i> Products
 						</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/customers/list}"> <i
+						<li class="nav-item"><a class="nav-link active" th:href="@{/customers/list}"> <i
 								class="fa-solid fa-users"
 								style="width: 30px; text-align: center"></i> Customers
 						</a></li>
@@ -208,52 +208,33 @@ a.overlay { width: 100%; height:100%;}
 			</nav>
 
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<div class="container" style="margin-top: 10px">
-<h3>Product Directory</h3>
+	<div class="container"  style="margin-top: 10px">
+<h3>Customer Directory</h3>
 <hr>
-<form action="#" th:action="@{/products/save}"
-	th:object="${product}" method="POST">
+<form action="#" th:action="@{/customers/save}"
+	th:object="${customer}" method="POST">
 	
 	<!-- Add hidden form field to handle update 
 	<input type="hidden" th:field="*{id}" />
 	-->
-	<!--
-	<input type="text" th:field="*{id}"
-	class="form-control mb-4 col-4" placeholder="Product Number">
-	-->
-	<input type="text" th:name="id" th:value="${product.id != 0} ? ${product.id}"
-	class="form-control mb-4 col-4" placeholder="Product Number">
 	
-	<input type="text" th:field="*{name}"
-	class="form-control mb-4 col-4" placeholder="Name" oninput="this.value = this.value.toUpperCase()">
-	<input type="text" th:field="*{price}"
-	class="form-control mb-4 col-4" placeholder="Price">
-
-<div>
-
-            <input type="checkbox" th:field="*{subscription}" th:checked="1"/>
-            <label>Subscription</label>
-</div>
-<div>
-
-            <input type="checkbox" th:field="*{wash}" th:checked="1"/>
-            <label>Wash</label>
-</div>
-<div>
-
-            <input type="checkbox" th:field="*{extra}" th:checked="true"/>
-            <label>Extra</label>
-</div>
-
-
-
-
-<div>
-
-            <input type="checkbox" th:field="*{lobby}" th:checked="true"/>
-            <label>Lobby</label>
-</div>
-     
+	<input type="text" th:field="*{id}"
+	class="form-control mb-4 col-4" placeholder="ID Number" oninput="this.value = this.value.toUpperCase()">
+	<!--  --><input type="text" th:field="*{firstName}"
+	class="form-control mb-4 col-4" placeholder="First Name" oninput="this.value = this.value.toUpperCase()">
+	<input type="text" th:field="*{lastName}"
+	class="form-control mb-4 col-4" placeholder="Last Name" oninput="this.value = this.value.toUpperCase()">
+	<input type="text" th:field="*{street}"
+	class="form-control mb-4 col-4" placeholder="Street" oninput="this.value = this.value.toUpperCase()">
+	<input type="text" th:field="*{city}"
+	class="form-control mb-4 col-4" placeholder="City" oninput="this.value = this.value.toUpperCase()">
+	<input type="text" th:field="*{State}"
+	class="form-control mb-4 col-4" placeholder="State" oninput="this.value = this.value.toUpperCase()">
+	<input type="text" th:field="*{zip}"
+	class="form-control mb-4 col-4" placeholder="Zip" oninput="this.value = this.value.toUpperCase()">
+	<input type="text" th:field="*{phone}"
+	class="form-control mb-4 col-4" placeholder="Phone" oninput="this.value = this.value.toUpperCase()">
+	
 	
 	  <button type="submit" class="btn btn-info col-2">Save</button>
 	  
@@ -261,11 +242,12 @@ a.overlay { width: 100%; height:100%;}
 	
 <hr>
 
-<a th:href="@{/products/list}">Back to Products List</a>	
+<a th:href="@{/customers/list}">Back to Customer List</a>	
+ 
+</div>
  
 </main>    
-		</div>		
-	</div>
+		
 
 </body>
 </html>
