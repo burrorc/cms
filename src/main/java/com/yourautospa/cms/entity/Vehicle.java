@@ -13,6 +13,9 @@ public class Vehicle {
 	@Column(name="plate")
 	private String plate;
 	
+	@Column(name="color")
+	private String color;
+	
 	@Column(name="make")
 	private String make;
 	
@@ -36,14 +39,14 @@ public class Vehicle {
 		this.plate = plate;
 	}
 
-	public Vehicle(String plate, String make, String model, int year, int customerId, int subscription) {
-		this.plate = plate;
-		this.make = make;
-		this.model = model;
-		this.year = year;
-		this.customerId = customerId;
-		this.subscription = subscription;
-	}
+//	public Vehicle(String plate, String make, String model, int year, int customerId, int subscription) {
+//		this.plate = plate;
+//		this.make = make;
+//		this.model = model;
+//		this.year = year;
+//		this.customerId = customerId;
+//		this.subscription = subscription;
+//	}
 
 	public String getPlate() {
 		return plate;
@@ -51,6 +54,14 @@ public class Vehicle {
 
 	public void setPlate(String plate) {
 		this.plate = plate;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public String getMake() {

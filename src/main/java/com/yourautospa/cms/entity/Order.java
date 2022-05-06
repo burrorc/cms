@@ -43,6 +43,9 @@ public class Order {
 	@Column(name="payment")
 	private String payment;
 	
+	@Column(name="amount_paid")
+	private BigDecimal amountPaid;
+	
 	@Column(name="comments")
 	private String comments;
 	
@@ -88,8 +91,8 @@ public class Order {
 		return completedOn;
 	}
 
-	public void setCompletedOn(LocalDateTime completedOn) {
-		this.completedOn = completedOn;
+	public void setCompletedOn() {
+		this.completedOn = LocalDateTime.now();
 	}
 
 	public String getPlate() {
@@ -106,6 +109,14 @@ public class Order {
 
 	public void setPayment(String payment) {
 		this.payment = payment;
+	}
+
+	public BigDecimal getAmountPaid() {
+		return amountPaid;
+	}
+
+	public void setAmountPaid(BigDecimal amountPaid) {
+		this.amountPaid = amountPaid;
 	}
 
 	public LocalDateTime getCreatedOn() {

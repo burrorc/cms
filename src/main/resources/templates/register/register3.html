@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<!-- include thymeleaf expressions -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous" />
+
+<link rel="stylesheet" th:href="@{/css/dashboard.css}" />
+
+<script src="https://kit.fontawesome.com/91f688f6b9.js"
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+
+<title>PAS Register</title>
+<style>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
+.list {
+	height: 40vh;
+	position: relative;
+	top: 20vh;
+}
+
+.listHead {
+	background-color: #010165;
+	color: white;
+	position: sticky;
+	top: 0;
+}
+
+.list {
+	overflow-y: auto;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.carDetail {
+	font-weight: bolder;
+	font-size: 1.5em;
+	color: #5959c5;
+}
+
+.pDetails {
+	color: #010165;
+}
+
+.custDetail {
+	font-size: 1.25em;
+}
+
+.myInput {
+	border: none;
+	background-color: #F8F9FA;
+}
+
+.myInput:focus {
+	outline: none;
+	background-color: white;
+}
+
+.orderInput {
+	border: 1px solid #F8F9FA;
+	background-color: #F8F9FA;
+	color: #5959c5;
+}
+
+.orderInput:focus {
+	outline: none;
+	border: 1px solid #5959c5;
+	background-color: white;
+	color: #5959c5;
+}
+
+.items {
+	background-color: #F8F9FA;
+}
+
+.isWash {
+	font-weight: bold;
+}
+
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	text-indent: 1px;
+	text-overflow: '';
+}
+</style>
+</head>
+<body>
+	<header class="navbar navbar-dark sticky-top flex-md-nowrap p-0">
+		<div
+			class="navbar-brand col-md-3 col-lg-2 me-0 px-3 py-0 d-flex justify-content-center">
+			<img th:src="@{/images/pasLogo.jpg}" style="width: 50%" />
+		</div>
+
+		<div class="navbar-nav">
+			<div class="nav-item mx-2">
+				<a class="px-3 btn btn-sm userSignIn" role="button" href="#"> <i
+					class="fa-solid fa-user-plus"
+					style="width: 30px; text-align: center"></i>Sign In
+				</a>
+			</div>
+		</div>
+	</header>
+	<div class="container-fluid">
+		<div class="row">
+			<nav id="sidebarMenu"
+				class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+				<div class="position-sticky pt-3">
+					<ul class="nav flex-column">
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="#"> <i
+								class="fa-solid fa-cash-register"
+								style="width: 30px; text-align: center"></i> Register
+						</a></li>
+						<li class="nav-item"><a class="nav-link" href="#"> <i
+								class="fa-solid fa-file" style="width: 30px; text-align: center"></i>
+								Orders
+						</a></li>
+						<li class="nav-item"><a class="nav-link" href="#"> <i
+								class="fa-solid fa-boxes-stacked"
+								style="width: 30px; text-align: center"></i> Products
+						</a></li>
+						<li class="nav-item"><a class="nav-link" href="#"> <i
+								class="fa-solid fa-users"
+								style="width: 30px; text-align: center"></i> Customers
+						</a></li>
+						<li class="nav-item"><a class="nav-link" href="#"> <i
+								class="fa-solid fa-car" style="width: 30px; text-align: center"></i>
+								Vehicles
+						</a></li>
+						<li class="nav-item"><a class="nav-link" href="#"> <i
+								class="fa-solid fa-users-gear"
+								style="width: 30px; text-align: center"></i> Employees
+						</a></li>
+					</ul>
+				</div>
+			</nav>
+
+			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+				<!-- PASTE CONTENT HERE -->
+				<div class="container">
+					<div class="row">
+						<div class="col-5" style="font-size: 1em; height: 25vh">
+							<div th:if="${vehicle}"
+								class="d-flex justify-content-start carDetail">
+								<div class="mx-2" th:text="${vehicle.plate}">GA123</div>
+								<div class="mx-2" th:text="${vehicle.make}">Ford</div>
+								<div class="mx-2" th:text="${vehicle.model}">Fusion</div>
+								<div class="mx-2" th:text="${vehicle.year}">2012</div>
+							</div>
+							<div th:if="${customer.id != 0}" class="custDetail"
+								th:object="${customer}">
+								<div class="d-flex justify-content-start">
+									<div class="mx-2" th:text="*{firstName}" />
+									<div class="mx-2" th:text="*{lastName}" />
+								</div>
+								<div class="d-flex justify-content-start">
+									<div class="mx-2" th:text="*{street}" />
+								</div>
+								<div class="d-flex justify-content-start">
+									<div class="mx-2" th:text="*{city}" />
+									<div class="mx-2" th:text="*{state}" />
+									<div class="mx-2" th:text="*{zip}" />
+								</div>
+								<div class="d-flex justify-content-start">
+									<div class="mx-2" th:text="*{phone}" />
+								</div>
+							</div>
+						</div>
+						<div class="col-4">
+							<form action="#" th:action="@{/register/findOrder}"
+								th:object="${order}" method="GET">
+								<div class="row carDetail">
+
+									<div class="col-4">ORDER</div>
+									<div class="col-8" style="padding-right: 0px;">
+										<!-- <input type="text" class="orderInput" th:field="*{id}"> -->
+										<input type="number" id="orderId" name="orderId"
+											class="orderInput" th:value="${order.id != 0} ? ${order.id}"
+											placeholder="#" style="width: 70px; float: right;">
+									</div>
+
+								</div>
+							</form>
+							<th:block th:if="${orderProducts}"
+								th:each="orderProduct : ${orderProducts}">
+								<div class="row border items">
+									<div class="col-1 mx-0" th:text="${orderProduct.id}" />
+									<div class="col-7 mx-0" th:text="${orderProduct.name}" />
+									<div class="col-2 mx-0" style="text-align: right;"
+										th:text="${orderProduct.price}" />
+								</div>
+
+							</th:block>
+							  
+							<form id="makePayment" action="#" th:object="${currentOrder}"
+								th:action="@{/register/completeOrder}" method="POST">
+								<input type="hidden" th:field="*{id}" />
+							<div class="row border items" style="height: 85%">
+								<textarea class="orderInput"  th:field="*{comments}" placeholder="Add Comments"></textarea>
+							</div>
+
+<!--
+						</div>
+						<div class="col-3 px-4">
+						 
+							<form id="makePayment" action="#" th:object="${currentOrder}"
+								th:action="@{/register/completeOrder}" method="POST">
+								<div class="row border items" style="height: 85%">
+								<textarea class="orderInput"  th:field="*{comments}" placeholder="Add Comments"></textarea>
+							</div>
+							-->	
+								<div class="row carDetail d-flex justify-content-center">Payment</div>
+								<div class="row carDetail d-flex justify-content-between">
+
+									<div class="col pDetails px-0">Total</div>
+									<div class="col pDetails px-0">
+										<span style="float: right;">47.99</span>
+									</div>
+								</div>
+								<div class="row carDetail d-flex justify-content-between">
+									<div class="col pDetails px-0">Payment</div>
+									<div class="col pDetails px-0">
+										<input th:field="*{amountPaid}" placeholder="Amount Paid"
+											class="paid orderInput px-0" type="number"
+											style="height: 1.5em; width: 100%; text-align: right; float: right; font-weight: bold"
+											onchange="checkDecimal(this)" />
+									</div>
+								</div>
+								<div class="row carDetail d-flex justify-content-between">
+									<div class="col pDetails px-0">Type</div>
+									<div class="col pDetails px-0">
+										<select th:field="*{payment}" class="payment orderInput"
+											style="text-align: right; font-size: 1em; float: right; font-weight: bold; width: 100%;">
+											<option class="px-0 float-right" value="CREDIT">CREDIT</option>
+											<option class="px-0 float-right" value="CASH">CASH</option>
+											<option class="px-0  float-right" value="GIFT CARD">GIFT
+												CARD</option>
+
+										</select>
+									</div>
+								</div>
+								<div class="row carDetail d-flex justify-content-between">
+									<div class="col pDetails px-0">Change</div>
+									<div class="col pDetails">
+										<span style="float: right;">47.99</span>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- 
+						<form id="makePayment" action="#" th:object="${currentOrder}"
+							th:action="@{/register/completeOrder}" method="POST">
+							<input type="hidden" th:field="*{id}" /> 
+							<input type="number"
+								th:field="*{amountPaid}" placeholder="Amount Paid"
+								style="width: 70px" onchange="checkDecimal(this)" class="paid">
+
+
+							<select class="payment" th:field="*{payment}">
+								<option value="CREDIT">CREDIT</option>
+								<option value="CASH">CASH</option>
+								<option value="GIFTCARD">GIFT CARD</option>
+							</select>
+
+
+						</form>
+ -->
+
+					</div>
+				</div>
+
+				<!-- <div class="container">here</div> -->
+				<div class="d-flex justify-content-end"></div>
+
+				<h5 style="position: relative; top: 20vh">Pending Orders</h5>
+				<div class="list">
+					<table class="table table-bordered table-striped">
+						<thead class="listHead">
+							<tr class="text-center">
+								<th>Time</th>
+								<th>Plate</th>
+								<th>Greeter</th>
+								<th>Total</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody style="height: 200px">
+							<tr th:each="pendingOrder : ${orders}" class="text-center">
+								<td th:text="${pendingOrder.createdOn}" />
+								<td th:text="${pendingOrder.name}" />
+								<td th:text="${pendingOrder.total}" />
+								<td>NOT PAID</td>
+								<td>
+									<!-- <a th:href="@{/orders/updateForm(orderId=${tempOrder.id})}" -->
+									<a href="#" class="btn btn-info btn-sm"> Update</a> <!-- <a th:href="@{/orders/delete(orderId=${tempOrder.id})}" -->
+									<a href="#" class="btn btn-danger btn-sm"
+									onclick="if (!(confirm('Are you sure you want to delete this order?'))) return false">
+										Delete</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+		</div>
+		<!-- PASTE CONTENT HERE -->
+		</main>
+	</div>
+	</div>
+	<script>
+		$(document).ready(function() {
+			$('#orderId').focus().select();
+
+		});
+
+		$('.paid').keypress(function(e) {
+			if (e.keyCode == 13) {
+				e.preventDefault()
+				$(this).nextAll('select,option').first().focus();
+
+			}
+		});
+
+		$('.paid').keypress(function(e) {
+			if (e.keyCode == 13) {
+				e.preventDefault()
+				$(this).nextAll('select,option').first().focus();
+
+			}
+		});
+
+		$(function() {
+			$(document).on('click', 'input[type=number]', function() {
+				this.select();
+			});
+		});
+
+		$('.payment').keypress(function(e) {
+			if (e.keyCode == 13) {
+				e.preventDefault()
+				if ($('.paid').val() === '') {
+					alert('Please enter a payment amount')
+					$('.paid').focus()
+				} else {
+					$('#makePayment').submit();
+				}
+				//
+
+			}
+		});
+
+		function checkDecimal(el) {
+			if (Number.isInteger(parseInt(el.value)))
+				el.value = parseFloat(el.value).toFixed(2);
+		}
+	</script>
+</body>
+</html>

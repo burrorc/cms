@@ -31,6 +31,9 @@ public class Customer {
 	@Column(name="state")
 	private String state;
 	
+	@Column(name="zip")
+	private String zip;
+	
 	@Column(name="phone")
 	private String phone;
 	
@@ -92,6 +95,14 @@ public class Customer {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.yourautospa.cms.controller;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -108,12 +109,16 @@ public class GreeterController {
 
 				}
 			}
-
-			for (int i = 0; i < theOrder.getProducts().size(); i++) {
-				System.out.println(theOrder.getProducts().get(i));
-			}
+			
 		}
-		
+
+		List<Product> theProducts = theOrder.getProducts();
+		BigDecimal theTotal = new BigDecimal("0.00");
+		for(Product tempProduct : theProducts) {
+			Product product = productService.findById(tempProduct.getId());
+			theTotal = theTotal.add(product.getPrice());
+		}
+		theOrder.setTotal(theTotal);
 		orderService.save(theOrder);
 
 //	public String saveEmployee(@ModelAttribute("employee") Employee theEmployee,
