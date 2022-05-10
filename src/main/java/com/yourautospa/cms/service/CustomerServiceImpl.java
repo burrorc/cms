@@ -12,12 +12,13 @@ import com.yourautospa.cms.entity.Customer;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
+	@Autowired
 	private CustomerRepository customerRepository;
 
-	@Autowired
-	public CustomerServiceImpl(CustomerRepository theCustomerRepository) {
-		customerRepository = theCustomerRepository;
-	}
+//	@Autowired
+//	public CustomerServiceImpl(CustomerRepository theCustomerRepository) {
+//		customerRepository = theCustomerRepository;
+//	}
 
 	@Override
 	public List<Customer> findAll() {

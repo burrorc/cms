@@ -1,8 +1,11 @@
 package com.yourautospa.cms.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,10 +28,11 @@ public class Vehicle {
 	@Column(name="year")
 	private int year;
 	
-	@Column(name="customer_id")
-	private int customerId;
+	@ManyToOne(cascade= {CascadeType.DETACH,
+			CascadeType.REFRESH})
+	@JoinColumn(name="customer_id")
+	private Customer customer;
 	
-	//@Column(name="subscription")
 	private int subscription;
 	
 	public Vehicle() {
@@ -38,15 +42,6 @@ public class Vehicle {
 	public Vehicle(String plate) {
 		this.plate = plate;
 	}
-
-//	public Vehicle(String plate, String make, String model, int year, int customerId, int subscription) {
-//		this.plate = plate;
-//		this.make = make;
-//		this.model = model;
-//		this.year = year;
-//		this.customerId = customerId;
-//		this.subscription = subscription;
-//	}
 
 	public String getPlate() {
 		return plate;
@@ -88,14 +83,6 @@ public class Vehicle {
 		this.year = year;
 	}
 
-	public int getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
-
 	public int getSubscription() {
 		return subscription;
 	}
@@ -104,10 +91,17 @@ public class Vehicle {
 		this.subscription = subscription;
 	}
 
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 	@Override
 	public String toString() {
-		return "Vehicle [plate=" + plate + ", make=" + make + ", model=" + model + ", year=" + year + ", customerId="
-				+ customerId + ", subscription=" + subscription + "]";
+		return "Vehicle [plate=" + plate + ", make=" + make + ", model=" + model + ", year=" + year + ", subscription=" + subscription + "]";
 	}
 	
 }

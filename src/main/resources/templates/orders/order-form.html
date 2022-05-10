@@ -165,10 +165,12 @@ a.overlay { width: 100%; height:100%;}
 
 		<div class="navbar-nav">
 			<div class="nav-item mx-2">
-				<a class="px-3 btn btn-sm userSignIn" role="button" href="#"> <i
-					class="fa-solid fa-user-plus"
-					style="width: 30px; text-align: center"></i>Sign In
-				</a>
+				<form action="#" th:action="@{/logout}" method="POST">
+					<button type="submit" class="px-3 btn btn-sm userSignIn">
+						<i class="fa-solid fa-user-minus"
+							style="width: 30px; text-align: center"></i>Logout
+					</button>
+				</form>
 			</div>
 		</div>
 	</header>
@@ -216,12 +218,11 @@ a.overlay { width: 100%; height:100%;}
 <form action="#" th:action="@{/orders/save}"
 	th:object="${order}" method="POST">
 	
-	<!-- Add hidden form field to handle update 
+	<!-- Add hidden form field to handle update -->
 	<input type="hidden" th:field="*{id}" />
-	-->
 	
-	<input type="text" th:field="*{id}"
-	class="form-control mb-4 col-4" placeholder="Order Number">
+	
+	
 	<input type="text" th:field="*{name}"
 	class="form-control mb-4 col-4" placeholder="Name" oninput="this.value = this.value.toUpperCase()">
 	<input type="text" th:field="*{createdOn}"
@@ -241,7 +242,7 @@ a.overlay { width: 100%; height:100%;}
 	<input type="text" th:field="*{comments}"
 	class="form-control mb-4 col-4" placeholder="Comments" oninput="this.value = this.value.toUpperCase()">
 	
-	  <button type="submit" class="btn btn-info col-2">Save</button>
+	  <button type="submit" class="btn btnCheckOut col-2">Save</button>
 	  
 	</form>
 	

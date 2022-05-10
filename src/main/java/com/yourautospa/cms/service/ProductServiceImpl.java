@@ -12,12 +12,13 @@ import com.yourautospa.cms.entity.Product;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+	@Autowired
 	private ProductRepository productRepository;
 
-	@Autowired
-	public ProductServiceImpl(ProductRepository theProductRepository) {
-		productRepository = theProductRepository;
-	}
+//	@Autowired
+//	public ProductServiceImpl(ProductRepository theProductRepository) {
+//		productRepository = theProductRepository;
+//	}
 
 	@Override
 	public List<Product> findAll() {

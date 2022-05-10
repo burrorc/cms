@@ -1,10 +1,15 @@
 package com.yourautospa.cms.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -36,6 +41,14 @@ public class Customer {
 	
 	@Column(name="phone")
 	private String phone;
+	
+	@OneToMany(fetch=FetchType.LAZY, 
+			mappedBy="customer",
+			cascade= {CascadeType.DETACH,
+			CascadeType.MERGE,
+			CascadeType.PERSIST,
+			CascadeType.REFRESH})
+	private List<Vehicle> vehicles;
 	
 	public Customer() {
 		
@@ -103,6 +116,14 @@ public class Customer {
 
 	public void setZip(String zip) {
 		this.zip = zip;
+	}
+
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
 	}
 	
 	

@@ -8,16 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.yourautospa.cms.dao.OrderRepository;
 import com.yourautospa.cms.entity.Order;
+import com.yourautospa.cms.entity.Vehicle;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
-	private OrderRepository orderRepository;
-
 	@Autowired
-	public OrderServiceImpl(OrderRepository theOrderRepository) {
-		orderRepository = theOrderRepository;
-	}
+	private OrderRepository orderRepository;
 
 	@Override
 	public List<Order> findAll() {

@@ -70,13 +70,23 @@ public class GreeterController {
 		}
 		Vehicle tempVehicle = vehicleService.findOrAdd(thePlate);
 		Product tempProduct = productService.findById(tempVehicle.getSubscription());
-		int customerId = tempVehicle.getCustomerId();
 		
-		if(customerId != 0) {
-			tempCustomer = customerService.findById(customerId);
+		System.out.println();
+		//int customerId = tempVehicle.getCustomerId();
+		Customer theCustomer;
+		
+//		if(customerId != 0) {
+//			tempCustomer = customerService.findById(customerId);
+//		}else {
+//			tempCustomer = new Customer();
+//		}
+		if(tempVehicle.getCustomer() == null) {
+			theCustomer = new Customer();
 		}else {
-			tempCustomer = new Customer();
+			theCustomer = tempVehicle.getCustomer();
 		}
+		
+		System.out.println(theCustomer.getId());
 		
 		List<Product> tunnelItems = productService.findBySubscriptionFalseAndWashTrueOrExtraTrue();
 		Order theOrder = new Order();
@@ -84,7 +94,8 @@ public class GreeterController {
 		vehicleService.save(tempVehicle);
 		
 		theModel.addAttribute("lastDate", formatedLastDate);
-		theModel.addAttribute(tempCustomer);
+		//theModel.addAttribute(tempCustomer);
+		theModel.addAttribute(theCustomer);
 		theModel.addAttribute(tempVehicle);
 		theModel.addAttribute(tempProduct);
 		theModel.addAttribute("tunnelItems", tunnelItems);

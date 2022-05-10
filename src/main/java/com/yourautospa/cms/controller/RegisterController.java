@@ -54,12 +54,21 @@ public class RegisterController {
 		List<Product> orderProducts = theOrder.getProducts();
 		String thePlate = theOrder.getPlate();
 		Vehicle theVehicle = vehicleService.findById(thePlate);
-		int customerId = theVehicle.getCustomerId();
+		
+		//int customerId = theVehicle.getCustomerId();
+		
 		Customer theCustomer;
-		if(customerId != 0) {
-			theCustomer = customerService.findById(customerId);
-		}else {
+		
+//		if(customerId != 0) {
+//			theCustomer = customerService.findById(customerId);
+//		}else {
+//			theCustomer = new Customer();
+//		}
+		
+		if(theVehicle.getCustomer() == null) {
 			theCustomer = new Customer();
+		}else {
+			theCustomer = theVehicle.getCustomer();
 		}
 		
 		for(Product product: orderProducts) {

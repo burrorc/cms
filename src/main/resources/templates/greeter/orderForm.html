@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<!-- Bootstrap CSS -->
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -16,89 +16,84 @@
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
 	
-<link rel="stylesheet" th:href="@{/css/greeter.css}" />
+	<script src="https://kit.fontawesome.com/91f688f6b9.js"
+	crossorigin="anonymous"></script>
+	
+<link rel="stylesheet" th:href="@{/css/greeter2.css}" />
 <title>PAS Greeter</title>
 
 </head>
 
 <body>
-	<div class="container-fluid top px-0">
-		<div class="row">
-			<div class="col-4">
-				<a id="userSelect" class="btn btn-info rounded-0 px-2" href="#"
-					role="button">👤 John</a>
-			</div>
-			<div class="col-8">
-				<!-- <img src="PAS.jpg" style="height: 1.5em; float: right; padding-right: 2em;;" class="img-fluid"
-          alt="Platinum Auto Spa Logo" /> -->
-				<p
-					style="color: white; font-size: 1.25em; font-weight: bolder; text-align: right;">PAS
-					LOGO</p>
-			</div>
+	<div class="container-fluid top">
+		<div class="row stripe">
+		  <div class="col-4 px-0">
+			<a id="userSelect" class="btn px-2" href="#" role="button">
+			  <i class="fa-solid fa-user mx-2"></i>STEVE
+			</a>
+		  </div>
+		  <div class="col-8 px-0">
+			<img th:src="@{/images/pasLogo.jpg}" style="height: 2em; float: right; margin-right: 2em;" class="img-fluid"
+			  alt="Platinum Auto Spa Logo" />
+			  </div>
 		</div>
-	</div>
-	<div class="container-fluid header">
+	  </div>
+	<div class="container header">
 		<form action="#" th:action="@{/greeter/addCar}" th:object="${vehicle}"
 			method="POST">
-			<div class="row">
-
-
-				<div class="col px-0">
+			<div class="d-flex justify-content-around">
 					<input type="text" th:field="*{plate}"
-						class="form-control rounded-0" id="plateLookupInput" value="GA"
+						class="form-control my-1" id="plateLookupInput" value="GA"
 						oninput="this.value = this.value.toUpperCase()" />
-				</div>
-				<div class="col" style="padding-left: 0px">
-					<button type="submit" class="btn btn-success rounded-0"
+				
+					<button type="submit" class="btn my-1"
 						id="plateLookupSubmit">Add Car</button>
-				</div>
+				
 
 			</div>
 		</form>
 	</div>
 	<div th:unless="${order}" style="height: 100%">Something Here</div>
 	<div th:if="${order}" >
-	<div class="container-fluid" id="clientName">
-
-		<p class="text-center mb-0 header"
-			th:text="${vehicle.customerId} == 0 ? 'UNKNOWN' : ${customer.firstName}+' '+${customer.lastName}" />
-	</div>
-	<div class="container-fluid" id="clientHistory">
-		<table class="table mb-0" th:object="${product}">
-			<tbody>
+	
+	  <div class="container rounded myBody px-0 my-2">
+		<p id="clientName" class="text-center mb-0"
+				th:text="${vehicle.customer} ? ${vehicle.customer.firstName}+' '+${vehicle.customer.lastName}: 'UNKNOWN'" />
+		  <div class="container-fluid" id="clientHistory">
+			<table class="table mb-0 lastVisit" th:object="${product}">
+			  <tbody>
 				<tr class="previousOrder">
-					<td class="text-left"
-						th:text="${product.id}==0 ? 'NOT SUBSCRIBER' : 'SUBSCRIBER'" />
-						
-						<!-- th:text="${product.id}==0 ? 'NOT SUBSCRIBER' : 'SUBSCRIBER'" /> -->
-					<td style="float: right"
-						th:text="${product.id}==0 ? 'NONE' : ${product.name}" />
+				  <td class="text-left"
+					th:text="${product.id}==0 ? 'NOT SUBSCRIBER' : 'SUBSCRIBER'" />
+					
+				  <td style="float: right"
+					th:text="${product.id}==0 ? 'NONE' : ${product.name}" />
 				</tr>
 				<tr class="previousOrder">
-					<td>LAST VISIT</td>
-					<td style="float: right" th:text="${lastDate}"/>
+				  <td>LAST VISIT</td>
+				  <td style="float: right" th:text="${lastDate}"/>
 				</tr>
-			</tbody>
-		</table>
-	</div>
+			  </tbody>
+			</table>
+		  </div>
+	  </div> 
 
-	<div class="container-fluid">
-		<div class="row menuHeader">
-			<div class="col text-center"
-				style="border-right: 2px solid lightgray;" type="button"
-				data-toggle="modal" data-target="#washModal">WASHES</div>
-			<div class="col text-center"
-				style="border-right: 2px solid lightgray;" type="button"
-				data-toggle="modal" data-target="#extrasModal">EXTRAS</div>
+	  <div class="container">
+		<div class="d-flex justify-content-around">
+		  <div class="col text-center menuHeader mx-3" type="button" data-toggle="modal"
+			data-target="#washModal">
+			WASHES
+		  </div>
+		  <div class="col text-center menuHeaderIn mx-3" type="button" data-toggle="modal"
+		  data-target="#extrasModal">EXTRAS</div>
 		</div>
-	</div>
+	  </div>
 
 <form action="#" th:action="@{/greeter/createOrder}"
 	th:object="${order}" method="POST">
 	<input th:if="${product.id} != 0" type="hidden" th:name="orderItems" th:value="${product.id}" th:id="'tunnelItem' + ${product.id}" />
 	
 	<div class="modal" tabindex="-1" role="dialog" id="washModal">
-		<!-- <div class="modal-dialog modal-fullscreen" role="document"  style="width: 720px;"> -->
 		<div class="modal-dialog modal-fullscreen" role="document">
 			<div class="modal-content">
 				<div class="d-flex justify-content-center modalHeader">
@@ -110,18 +105,9 @@
 				<th:block th:each="tunnelItem: ${tunnelItems}">
 					<div th:if="${tunnelItem.wash}" class="row" >
 						<div class="col px-0">
-					<!-- 	<input type="checkbox" class="btn-check sizeSelectCheck extra"
-								name="orderItems" th:value="${tunnelItem.id}" th:id="'tunnelItem' + ${tunnelItem.id}"/> <label
-								class="btn sizeSelect rounded-0 shadow-none px-0" th:for="'tunnelItem' + ${tunnelItem.id}">
-								<div class="d-flex justify-content-between">
-									<div class="px-3 item" th:text="${tunnelItem.name}"></div>
-									<div class="px-3 price" th:text="${tunnelItem.price}"></div>
-
-								</div>
-							</label>
-							 -->
 							<input type="radio" class="btn-check sizeSelectCheck wash"
-								name="orderItems" th:value="${tunnelItem.id}" th:id="'tunnelItem' + ${tunnelItem.id}"/> <label
+								name="orderItems" th:value="${tunnelItem.id}" th:id="'tunnelItem' + ${tunnelItem.id}"/> 
+								<label
 								class="btn sizeSelect rounded-0 shadow-none px-0"
 								th:for="'tunnelItem' + ${tunnelItem.id}">
 								<div class="d-flex justify-content-between">
@@ -138,10 +124,8 @@
 				<div class="modal-footer">
 					<div class="container-fluid px-0">
 						<div class="row">
-							<div class="col px-0">
-								<a id="clearForm" class="btn btn-success rounded-0 clearCreateOrder" href="#"
-									role="button" data-dismiss="modal">Add/Edit Washes</a>
-							</div>
+							<a id="createWash" class="btn rounded-0 createOrder" style="width:100%;" href="#" role="button" data-dismiss="modal">Add Wash</a>
+							
 						</div>
 					</div>
 
@@ -178,10 +162,8 @@
 				<div class="modal-footer">
 					<div class="container-fluid px-0">
 						<div class="row">
-							<div class="col px-0">
-								<a id="clearForm" class="btn btn-success rounded-0 clearCreateOrder" href="#"
-									role="button" data-dismiss="modal">Add/Edit Extras</a>
-							</div>
+							<a id="createExtras" class="btn rounded-0 createOrder" style="width:100%;" href="#" role="button" data-dismiss="modal">Add Extra</a>
+            
 						</div>
 					</div>
 				</div>
@@ -189,45 +171,45 @@
 		</div>
 		 
 	</div>
-
+	<div class="container rounded myBody px-0 mt-2" >
 	<div class="container-fluid" id="currentOrder">
 		
 	<!-- Add hidden form field to handle update--> 
 	<input type="hidden" th:field="*{id}" />
 	<input type="hidden" th:name="plate" th:value="${order.plate != null} ? ${order.plate} : ${vehicle.plate}" />
 	
-			<table class="table mb-0">
+			<table class="table mb-0 lastVisit">
 				<tbody id="summary">
-					<tr th:if="${product.id} != 0" class="currentItems">
-						<td class="text-left summaryItem" style="border: none;" th:text="${product.name}" />
-						<td class="summaryPrice" style="float: right; border: none;" th:text="${product.price}" />
-					</tr>
-					
+				  <tr th:if="${product.id} != 0" class="currentItems">
+					<td class="summaryItem text-left" style="width: 50%" th:text="${product.name}" />
+					<td class="summaryPrice text-right" style="width: 50%; text-align: right;" th:text="${product.price}" />
+				  </tr>
+				  <tr>
+					<td colspan="2">
+					<input th:field="*{comments}" class="addComments" type="text" placeholder="Add Comments" >
+				  </td>
+				  </tr>
 				</tbody>
-			</table>
-		
+			  </table>
 	</div>
-	<div class="container-fluid myFooter">
-		<div class="row">
-			<input th:field="*{comments}" type="text" placeholder="Add Comments"
-				style="height: 2em; font-size: 1.5em;">
-		</div>
-		<div class="row total">
-			<div class="d-flex justify-content-center">
+	</div>
+
+		<div class="container rounded myBodyTotal px-0">
+			<div class="row total">
+			  <div class="d-flex justify-content-center">
 				<div style="padding-right: 20px">Total</div>
 				<div class="sumPrice" style="padding-left: 20px">0.00</div>
+			  </div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-6 px-0">
-				<a id="clearForm" class="btn btn-danger rounded-0 clearCreateOrder"
-					th:href="@{/greeter/clear}" role="button">Clear Form</a>
 			</div>
-			<div class="col-6 px-0">
-			<button type="submit" class="btn btn-success rounded-0 clearCreateOrder"
-						id="createOrder">Create Order</button>
+			<div class="container-fluid myFooter"></div>
+		<div class="container-fluid myFooter  px-0" >
+			<div class="d-flex justify-content-center">
+				<button type="submit" id="createOrder" class="btn rounded-0 createOrder" style="width: 100%;">Create Order</button>
+			  </div>  
+			<div class="d-flex justify-content-center">
+			  <a id="clearForm" class="btn rounded-0 cancelOrder" style="width: 100%; postion:relative; bottom:0" th:href="@{/greeter/clear}" role="button">Cancel Order</a>
 			</div>
-		</div>
 	</div>
 	</form>
 </div>
@@ -253,7 +235,7 @@
 				$("#summary").prepend(summaryRowWash)
 			}else if($(this).is(':checked')&&$(this).hasClass("extra")){
 				console.log("checked extra")
-				$("#summary").append(summaryRowExtra)
+				$("#summary tr").last().before(summaryRowExtra)
 			}else{
 				console.log(id)
 				$("#" + id).remove()

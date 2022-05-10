@@ -1,0 +1,203 @@
+html {
+      min-width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      position: relative;
+      /* background-color: #F8F9FA; */
+    background-color: #F8F9FA;
+    }
+
+    .header {
+      background-color: #F8F9FA;
+      color: white;
+      /* width: 100%; */
+      /* padding: 0px; */
+    }
+
+    #userSelect {
+      width: 100%;
+      border: 0;
+      font-size: 1em;
+      font-weight: bolder;
+      height: 100%;
+      color: white;
+    }
+
+    .stripe{
+      background-color: #010165;
+    }
+
+    #plateLookupInput {
+      border: 2px solid #010165;
+      border-radius: 20px;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #010165;
+      width: 45%;
+    }
+
+    #plateLookupSubmit {
+      border: 2px solid #010165;
+      font-size: 1.5em;
+      font-weight: bolder;
+      border-radius: 20px;
+      width: 45%;
+      color: white;
+      background-color: #010165;
+      padding: 0px;
+    }
+ 
+    #clientName {
+      /* width: 100%; */
+      font-size: 1.5em;
+      font-weight: bolder;
+      padding: 0px;
+      color: #5959c5;
+    }
+
+    .myBody{
+      border-radius: 20px;
+      border: 2px solid #5959c5;
+      background-color: white;
+      color: #5959c5;
+      width: 90%;
+
+    }
+
+    .myBodyTotal{
+      border-radius: 20px;
+      border: 2px solid #5959c5;
+      background-color: #5959c5;
+      color: white;
+      width: 90%;
+      font-weight: bold;
+      font-size: 1.5em;
+
+    }
+    .lastVisit{
+      background-color: white;
+      color: #5959c5;
+      font-weight:500;
+
+    }
+
+    /* #clientHistory {
+      background-color: lightgrey;
+      font-size: 1em;
+    } */
+
+    .menuHeader {
+      border: 2px solid #5959c5;
+      font-size: 1.5em;
+      font-weight: bolder;
+      border-radius: 20px;
+      color: white;
+      background-color: #5959c5;
+    }
+
+    .menuHeaderIn {
+      border: 2px solid #5959c5;
+      font-size: 1.5em;
+      font-weight: bolder;
+      border-radius: 20px;
+      color: #5959c5;
+      background-color: white;
+    }
+
+    .addComments{
+      width: 100%;
+      height:2em; 
+      font-size: 1em;
+      border: none;
+      color:#5959c5;
+    }
+
+    .cancelOrder {
+      border: 2px solid white;
+      border-radius: 20px;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #010165;
+      width: 75%;
+      background-color: white;
+    }
+    .cancelOrder:hover {
+      border: 2px solid #5959c5;
+      color: white;
+      background-color: #5959c5;
+    }
+    
+
+    .createOrder {
+      border: 2px solid #010165;
+      font-size: 1.5em;
+      font-weight: bolder;
+      border-radius: 20px;
+      width: 75%;
+      color: white;
+      background-color: #010165;
+    }
+    .createOrder:hover {
+      border: 2px solid #5959c5;
+      color: white;
+      background-color: #5959c5;
+    }
+
+    
+
+    .footer {
+      background-color: #010165;
+      color: white;
+      width: 100%;
+      padding: 0px;
+    }
+
+    
+
+    
+
+    
+
+    .myFooter {
+      position: fixed;
+      bottom: 0;
+    }
+
+    .modalHeader {
+      background-color: #010165;
+      font-size: 3em;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .sizeSelect {
+      font-size: 2em;
+      font-weight: bolder;
+      color: #5959c5;
+      border: 2px solid #5959c5;
+      
+      background-color: #F8F9FA;
+      width: 100%;
+    }
+
+    .sizeSelect:hover {
+      background-color: #5959c5;
+      color: white;
+    }
+
+    .sizeSelectCheck:checked {
+      background-color: #5959c5;
+      color: white;
+    }
+
+    .sizeSelectCheck:checked~.sizeSelect {
+      background-color: #5959c5;
+      color: white;
+    }
+
+    .sizeSelectCheck {
+      border: none;
+    } 

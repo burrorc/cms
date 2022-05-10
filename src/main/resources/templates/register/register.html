@@ -165,10 +165,12 @@ a.overlay { width: 100%; height:100%;}
 
 		<div class="navbar-nav">
 			<div class="nav-item mx-2">
-				<a class="px-3 btn btn-sm userSignIn" role="button" href="#"> <i
-					class="fa-solid fa-user-plus"
-					style="width: 30px; text-align: center"></i>Sign In
-				</a>
+				<form action="#" th:action="@{/logout}" method="POST">
+					<button type="submit" class="px-3 btn btn-sm userSignIn">
+						<i class="fa-solid fa-user-minus"
+							style="width: 30px; text-align: center"></i>Logout
+					</button>
+				</form>
 			</div>
 		</div>
 	</header>
@@ -183,6 +185,7 @@ a.overlay { width: 100%; height:100%;}
 								class="fa-solid fa-cash-register"
 								style="width: 30px; text-align: center"></i> Register
 						</a></li>
+						<div sec:authorize="hasRole('MANAGER')">
 						<li class="nav-item"><a class="nav-link" th:href="@{/orders/list}"> <i
 								class="fa-solid fa-file" style="width: 30px; text-align: center"></i>
 								Orders
@@ -203,6 +206,7 @@ a.overlay { width: 100%; height:100%;}
 								class="fa-solid fa-users-gear"
 								style="width: 30px; text-align: center"></i> Employees
 						</a></li>
+						</div>
 					</ul>
 				</div>
 			</nav>
@@ -219,7 +223,7 @@ a.overlay { width: 100%; height:100%;}
 								<div class="mx-2" th:text="${vehicle.model}">Fusion</div>
 								<div class="mx-2" th:text="${vehicle.year}">2012</div>
 							</div>
-							<div th:if="${customer.id != 0}" class="custDetail"
+							<div th:if="${customer}" class="custDetail"
 								th:object="${customer}">
 								<div class="d-flex justify-content-start">
 									<div class="mx-2" th:text="*{firstName}" />
@@ -273,16 +277,7 @@ a.overlay { width: 100%; height:100%;}
                                 <input type="hidden" class="com2"  th:field="*{comments}"/>
                                 
 
-                                <!--
-                                </div>
-                                <div class="col-3 px-4">
-                            
-                                <form id="makePayment" action="#" th:object="${currentOrder}"
-                                    th:action="@{/register/completeOrder}" method="POST">
-                                    <div class="row border items" style="height: 85%">
-                                    <textarea class="orderInput"  th:field="*{comments}" placeholder="Add Comments"></textarea>
-                                </div>
-							    -->	
+                              
 								<div class="row carDetail d-flex justify-content-center">Payment</div>
 								<div class="row carDetail d-flex justify-content-between">
 
@@ -324,24 +319,7 @@ a.overlay { width: 100%; height:100%;}
 								</div>
 							</form>
 						</div>
-						<!-- 
-						<form id="makePayment" action="#" th:object="${currentOrder}"
-							th:action="@{/register/completeOrder}" method="POST">
-							<input type="hidden" th:field="*{id}" /> 
-							<input type="number"
-								th:field="*{amountPaid}" placeholder="Amount Paid"
-								style="width: 70px" onchange="checkDecimal(this)" class="paid">
-
-
-							<select class="payment" th:field="*{payment}">
-								<option value="CREDIT">CREDIT</option>
-								<option value="CASH">CASH</option>
-								<option value="GIFTCARD">GIFT CARD</option>
-							</select>
-
-
-						</form>
-                        -->
+						
 
 					</div>
 				</div>
@@ -363,7 +341,7 @@ a.overlay { width: 100%; height:100%;}
                             <tbody style="height: 200px">
                                 <tr th:each="pendingOrder : ${orders}" class="text-center">
                                 	<td th:text="${pendingOrder.createdOn}" />
-                                    <td th:text="${pendingOrder.name}" />
+                                    <td th:text="${pendingOrder.plate}" />
                                     <td th:text="${pendingOrder.total}" />
                                     <td th:text="${pendingOrder.total}"></td>
                                     <td>

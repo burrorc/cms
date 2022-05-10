@@ -50,7 +50,7 @@ public class CustomerController {
 							Model theModel){
 		
 		Customer theCustomer = customerService.findById(theId);
-		
+		System.out.println(theCustomer.getVehicles());
 		theModel.addAttribute("customer", theCustomer);
 		
 		return "customers/customer-form";

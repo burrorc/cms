@@ -12,12 +12,13 @@ import com.yourautospa.cms.entity.Employee;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
+	@Autowired
 	private EmployeeRepository employeeRepository;
 
-	@Autowired
-	public EmployeeServiceImpl(EmployeeRepository theEmployeeRepository) {
-		employeeRepository = theEmployeeRepository;
-	}
+//	@Autowired
+//	public EmployeeServiceImpl(EmployeeRepository theEmployeeRepository) {
+//		employeeRepository = theEmployeeRepository;
+//	}
 
 	@Override
 	public List<Employee> findAll() {

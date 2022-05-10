@@ -166,10 +166,12 @@ a.overlay { width: 100%; height:100%;}
 
 		<div class="navbar-nav">
 			<div class="nav-item mx-2">
-				<a class="px-3 btn btn-sm userSignIn" role="button" href="#"> <i
-					class="fa-solid fa-user-plus"
-					style="width: 30px; text-align: center"></i>Sign In
-				</a>
+				<form action="#" th:action="@{/logout}" method="POST">
+					<button type="submit" class="px-3 btn btn-sm userSignIn">
+						<i class="fa-solid fa-user-minus"
+							style="width: 30px; text-align: center"></i>Logout
+					</button>
+				</form>
 			</div>
 		</div>
 	</header>

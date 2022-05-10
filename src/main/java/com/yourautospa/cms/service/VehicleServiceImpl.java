@@ -12,12 +12,13 @@ import com.yourautospa.cms.entity.Vehicle;
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
+	@Autowired
 	private VehicleRepository vehicleRepository;
 
-	@Autowired
-	public VehicleServiceImpl(VehicleRepository theVehicleRepository) {
-		vehicleRepository = theVehicleRepository;
-	}
+//	@Autowired
+//	public VehicleServiceImpl(VehicleRepository theVehicleRepository) {
+//		vehicleRepository = theVehicleRepository;
+//	}
 
 	@Override
 	public List<Vehicle> findAll() {
@@ -46,9 +47,9 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Override
 	public void save(Vehicle theVehicle) {
-		if(theVehicle.getMake()=="") {
-			theVehicle.setMake("UNKNOWN");
-		}
+//		if(theVehicle.getMake()=="") {
+//			theVehicle.setMake("UNKNOWN");
+//		}
 //		if(theVehicle.getModel()=="") {
 //			theVehicle.setModel("UNKNOWN");
 //		}
