@@ -16,7 +16,6 @@ import com.yourautospa.cms.entity.Customer;
 import com.yourautospa.cms.entity.Order;
 import com.yourautospa.cms.entity.Product;
 import com.yourautospa.cms.entity.Vehicle;
-import com.yourautospa.cms.service.CustomerService;
 import com.yourautospa.cms.service.OrderService;
 import com.yourautospa.cms.service.VehicleService;
 
@@ -28,8 +27,7 @@ public class RegisterController {
 	private OrderService orderService;
 	@Autowired
 	private VehicleService vehicleService;
-	@Autowired
-	private CustomerService customerService;
+	
 	
 	@GetMapping("/register")
 	public String home(Model theModel) {

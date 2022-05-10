@@ -1,0 +1,17 @@
+<header class="navbar navbar-dark sticky-top flex-md-nowrap p-0">
+		<div
+			class="navbar-brand col-md-3 col-lg-2 me-0 px-3 py-0 d-flex justify-content-center">
+			<img th:src="@{/images/pasLogo.jpg}" style="width: 50%" />
+		</div>
+
+		<div class="navbar-nav">
+			<div class="nav-item mx-2">
+				<form action="#" th:action="@{/logout}" method="POST">
+					<button type="submit" class="px-3 btn btn-sm userSignIn">
+						<i class="fa-solid fa-user-minus"
+							style="width: 30px; text-align: center"></i>Logout
+					</button>
+				</form>
+			</div>
+		</div>
+	</header>

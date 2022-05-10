@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.yourautospa.cms.dao.OrderRepository;
 import com.yourautospa.cms.entity.Order;
-import com.yourautospa.cms.entity.Vehicle;
 
 @Service
 public class OrderServiceImpl implements OrderService {

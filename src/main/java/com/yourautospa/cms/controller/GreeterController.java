@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.yourautospa.cms.entity.Customer;
 import com.yourautospa.cms.entity.Order;
 import com.yourautospa.cms.entity.Product;
+import com.yourautospa.cms.entity.User;
 import com.yourautospa.cms.entity.Vehicle;
-import com.yourautospa.cms.service.CustomerService;
 import com.yourautospa.cms.service.OrderService;
 import com.yourautospa.cms.service.ProductService;
 import com.yourautospa.cms.service.VehicleService;
@@ -27,6 +27,8 @@ import com.yourautospa.cms.service.VehicleService;
 @Controller
 @RequestMapping("/greeter")
 public class GreeterController {
+	
+	private User theGreeter;
 
 	@Autowired
 	private VehicleService vehicleService;
@@ -37,22 +39,17 @@ public class GreeterController {
 	@Autowired
 	private OrderService orderService;
 	
-	@Autowired
-	private CustomerService customerService;
-
 	@GetMapping("/order")
 	public String greeter(Model theModel) {
 		Vehicle theVehicle = new Vehicle();
 		theVehicle.setPlate("GA");
 
 		theModel.addAttribute("vehicle", theVehicle);
-
 		return "greeter/orderForm";
 	}
 
 	@PostMapping("/addCar")
 	public String saveVehicle(@ModelAttribute("vehicle") Vehicle theVehicle, Model theModel) {
-		Customer tempCustomer;
 		String thePlate = theVehicle.getPlate();
 		Order lastOrder = orderService.findFirstByPlateOrderByCreatedOnDesc(thePlate);
 		String formatedLastDate;
@@ -71,30 +68,19 @@ public class GreeterController {
 		Vehicle tempVehicle = vehicleService.findOrAdd(thePlate);
 		Product tempProduct = productService.findById(tempVehicle.getSubscription());
 		
-		System.out.println();
-		//int customerId = tempVehicle.getCustomerId();
 		Customer theCustomer;
 		
-//		if(customerId != 0) {
-//			tempCustomer = customerService.findById(customerId);
-//		}else {
-//			tempCustomer = new Customer();
-//		}
 		if(tempVehicle.getCustomer() == null) {
 			theCustomer = new Customer();
 		}else {
 			theCustomer = tempVehicle.getCustomer();
 		}
 		
-		System.out.println(theCustomer.getId());
-		
 		List<Product> tunnelItems = productService.findBySubscriptionFalseAndWashTrueOrExtraTrue();
 		Order theOrder = new Order();
 
 		vehicleService.save(tempVehicle);
-		
 		theModel.addAttribute("lastDate", formatedLastDate);
-		//theModel.addAttribute(tempCustomer);
 		theModel.addAttribute(theCustomer);
 		theModel.addAttribute(tempVehicle);
 		theModel.addAttribute(tempProduct);
@@ -131,60 +117,10 @@ public class GreeterController {
 		}
 		theOrder.setTotal(theTotal);
 		orderService.save(theOrder);
-
-//	public String saveEmployee(@ModelAttribute("employee") Employee theEmployee,
-//			@RequestParam(value = "cers", required = false) int[] cers, BindingResult bindingResult, Model model) {
-//
-//		if (cers != null) {
-//			Certificate certificate = null;
-//			for (int i = 0; i < cers.length; i++) {
-//				if (certificateService.existsById(cers[i])) {
-//					certificate = new Certificate();
-//					certificate.setId(cers[i]);
-//					theEmployee.getCertificates().add(certificate);
-//
-//				}
-//			}
-//
-//			for (int i = 0; i < theEmployee.getCertificates().size(); i++) {
-//				System.out.println(theEmployee.getCertificates().get(i));
-//			}
-//		}
-//
-//		employeeService.save(theEmployee);
-//
-//		return "redirect:/employees/list";
-//		Product tempProduct = productService.findById(tempVehicle.getSubscription());
-//		List<Product> theProducts = productService.findAll();
-//		List<Extra> theExtras = extraService.findAll();
-//		Order theOrder = new Order();
-//		
-//		
-//	vehicleService.save(tempVehicle);
-//	theModel.addAttribute(tempVehicle);
-//	theModel.addAttribute(tempProduct);
-//	theModel.addAttribute("products", theProducts);
-//	theModel.addAttribute("extras", theExtras);
-//	theModel.addAttribute(theOrder);
-
 		return "redirect:/greeter/order";
 
 	}
 
-//	@PostMapping("/addCar")
-//	public String addCar(@ModelAttribute("vehicle") Vehicle theVehicle, Model theModel) {
-//
-//		//String thePlate = theVehicle.getPlate();
-//		
-//		vehicleService.save(theVehicle);
-//		
-//		//Vehicle tempVehicle = vehicleService.findOrAdd(thePlate);
-//
-//		theModel.addAttribute("vehicle", theVehicle);
-//
-//		return "greeter";
-//
-//	}
 	@GetMapping("/clear")
 	public String clear(Model theModel) {
 		return "redirect:/greeter/order";

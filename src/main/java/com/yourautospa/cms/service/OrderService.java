@@ -3,7 +3,7 @@ package com.yourautospa.cms.service;
 import java.util.List;
 
 import com.yourautospa.cms.entity.Order;
-import com.yourautospa.cms.entity.Vehicle;
+
 
 public interface OrderService {
 
