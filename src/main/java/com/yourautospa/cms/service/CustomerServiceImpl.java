@@ -15,11 +15,6 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-//	@Autowired
-//	public CustomerServiceImpl(CustomerRepository theCustomerRepository) {
-//		customerRepository = theCustomerRepository;
-//	}
-
 	@Override
 	public List<Customer> findAll() {
 		return customerRepository.findAll();
@@ -27,7 +22,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public Customer findById(int theId) {
-		// TODO Auto-generated method stub
 		Optional<Customer> result = customerRepository.findById(theId);
 
 		Customer theCustomer = null;
@@ -53,21 +47,5 @@ public class CustomerServiceImpl implements CustomerService {
 		customerRepository.deleteById(theId);
 
 	}
-
-//	@Override
-//	public Wash findOrAdd(String theId) {
-//		Optional<Wash> result = washRepository.findById(theId);
-//
-//		Wash theWash = null;
-//
-//		if (result.isPresent()) {
-//			theWash = result.get();
-//		} else {
-//			theWash = new Wash(theId);
-//		}
-//
-//		return theWash;
-//	}
-
 	
 }

@@ -97,25 +97,4 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	
-
-	
-
-	
-
-//	@Override
-//	public Product findOrAdd(String theId) {
-//		Optional<Product> result = productRepository.findById(theId);
-//
-//		Product theProduct = null;
-//
-//		if (result.isPresent()) {
-//			theProduct = result.get();
-//		} else {
-//			theProduct = new Product(theId);
-//		}
-//
-//		return theProduct;
-//	}
-
-	
 }

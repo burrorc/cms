@@ -15,19 +15,11 @@ public class VehicleServiceImpl implements VehicleService {
 	@Autowired
 	private VehicleRepository vehicleRepository;
 
-//	@Autowired
-//	public VehicleServiceImpl(VehicleRepository theVehicleRepository) {
-//		vehicleRepository = theVehicleRepository;
-//	}
-
 	@Override
 	public List<Vehicle> findAll() {
 		return vehicleRepository.findAllByOrderByPlateAsc();
 	}
-//	@Override
-//	public List<Vehicle> findAll() {
-//		return vehicleRepository.findAll();
-//	}
+
 
 	@Override
 	public Vehicle findById(String theId) {
@@ -47,12 +39,7 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Override
 	public void save(Vehicle theVehicle) {
-//		if(theVehicle.getMake()=="") {
-//			theVehicle.setMake("UNKNOWN");
-//		}
-//		if(theVehicle.getModel()=="") {
-//			theVehicle.setModel("UNKNOWN");
-//		}
+
 		vehicleRepository.save(theVehicle);
 
 	}

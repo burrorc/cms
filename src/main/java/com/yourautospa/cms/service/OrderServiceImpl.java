@@ -55,20 +55,5 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.findFirstByPlateOrderByCreatedOnDesc(thePlate);
 	}
 
-//	@Override
-//	public Wash findOrAdd(String theId) {
-//		Optional<Wash> result = washRepository.findById(theId);
-//
-//		Wash theWash = null;
-//
-//		if (result.isPresent()) {
-//			theWash = result.get();
-//		} else {
-//			theWash = new Wash(theId);
-//		}
-//
-//		return theWash;
-//	}
-
 	
 }

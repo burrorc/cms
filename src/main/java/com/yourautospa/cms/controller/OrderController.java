@@ -66,7 +66,7 @@ public class OrderController {
 	}
 	
 	@GetMapping("/delete")
-	public String delete(@RequestParam("orderPlate")int theId) {
+	public String delete(@RequestParam("orderId")int theId) {
 		
 	orderService.deleteById(theId);
 	

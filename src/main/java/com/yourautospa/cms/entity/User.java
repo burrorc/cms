@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class User {
 	
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
     
@@ -33,8 +33,17 @@ public class User {
     
     @Column(name="roles")
     private String roles;
+    
+    public User() {
+    	
+    }
 
-    public int getId() {
+    public User(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
+	public int getId() {
         return id;
     }
 

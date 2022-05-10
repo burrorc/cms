@@ -1,4 +1,4 @@
-package com.yourautospa.cms.service;
+package com.yourautospa.cms.security;
 
 import java.util.Arrays;
 import java.util.Collection;
