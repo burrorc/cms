@@ -73,15 +73,12 @@
 	
 	
 	
-	<input type="text" th:field="*{name}"
-	class="form-control mb-4 col-4" placeholder="Name" oninput="this.value = this.value.toUpperCase()">
+	
 	<input type="text" th:field="*{createdOn}"
 	class="form-control mb-4 col-4" placeholder="Created On" oninput="this.value = this.value.toUpperCase()">
 	<input type="text" th:field="*{completedOn}"
 	class="form-control mb-4 col-4" placeholder="Completed On" oninput="this.value = this.value.toUpperCase()">
-	<input type="text" th:field="*{name}"
-	class="form-control mb-4 col-4" placeholder="Name" oninput="this.value = this.value.toUpperCase()">
-	<input type="text" th:field="*{plate}"
+	<input type="text" th:field="*{vehicle.plate}"
 	class="form-control mb-4 col-4" placeholder="Plate" oninput="this.value = this.value.toUpperCase()">
 	<input type="text" th:field="*{total}"
 	class="form-control mb-4 col-4" placeholder="Total" oninput="this.value = this.value.toUpperCase()">

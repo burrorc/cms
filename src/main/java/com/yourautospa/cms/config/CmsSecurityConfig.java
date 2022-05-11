@@ -35,8 +35,12 @@ public class CmsSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/register/**").hasRole("EMPLOYEE")
-				.antMatchers("/vehicles/**").hasAnyRole("MANAGER", "ADMIN")
+				.antMatchers("/register/**").hasAnyRole("EMPLOYEE","MANAGER")
+				.antMatchers("/vehicles/**").hasRole("MANAGER")
+				.antMatchers("/users/**").hasRole("MANAGER")
+				.antMatchers("/customers/**").hasRole("MANAGER")
+				.antMatchers("/orders/**").hasRole("MANAGER")
+				.antMatchers("/products/**").hasRole("MANAGER")
 				.antMatchers("/css/**").permitAll()
 				.antMatchers("/images/**").permitAll()
 				.antMatchers("/greeter/**").permitAll()

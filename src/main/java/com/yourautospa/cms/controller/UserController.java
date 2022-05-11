@@ -26,10 +26,6 @@ public class UserController {
 	@Autowired    
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-//	public UserController(UserService theUserService) {
-//		userService = theUserService;
-//	}
-	
 	@GetMapping("/list")
 	public String listUsers(Model theModel) {
 		
@@ -63,9 +59,14 @@ public class UserController {
 	
 	@PostMapping("/save")
 	public String saveUser(@ModelAttribute("user") User theUser) {
-		
-	String encodedPassword = bCryptPasswordEncoder.encode(theUser.getPassword());
-	theUser.setPassword(encodedPassword);
+	
+	String thePassword = theUser.getPassword();
+	if(thePassword.length() < 20) {
+		System.out.println("less than 20");
+		String encodedPassword = bCryptPasswordEncoder.encode(theUser.getPassword());
+		theUser.setPassword(encodedPassword);
+	}
+	
 	userService.save(theUser);
 	
 	return "redirect:/users/list";

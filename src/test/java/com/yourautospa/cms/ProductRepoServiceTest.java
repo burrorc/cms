@@ -20,7 +20,7 @@ import com.yourautospa.cms.entity.Product;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class ProductServiceImplTest {
+public class ProductRepoServiceTest {
 
 	@Autowired
 	private ProductRepository repository;

@@ -15,6 +15,12 @@ input[type=number] {
 	top: 10vh;
 }
 
+.long {
+	height: 60vh;
+	position: relative;
+	top: 5vh;
+}
+
 .listHead {
 	background-color: #010165;
 	color: white;
@@ -23,6 +29,10 @@ input[type=number] {
 }
 
 .list {
+	overflow-y: auto;
+}
+
+.long {
 	overflow-y: auto;
 }
 

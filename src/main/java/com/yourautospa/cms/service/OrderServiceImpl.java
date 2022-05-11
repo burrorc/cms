@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.yourautospa.cms.dao.OrderRepository;
 import com.yourautospa.cms.entity.Order;
+import com.yourautospa.cms.entity.Vehicle;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -50,9 +51,15 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Order findFirstByPlateOrderByCreatedOnDesc(String thePlate) {
+	public Order findFirstByVehicleOrderByCreatedOnDesc(Vehicle theVehicle) {
 		// TODO Auto-generated method stub
-		return orderRepository.findFirstByPlateOrderByCreatedOnDesc(thePlate);
+		return orderRepository.findFirstByVehicleOrderByCreatedOnDesc(theVehicle);
+	}
+
+	@Override
+	public List<Order> findAllByCompletedOnIsNullOrderByCreatedOn() {
+		// TODO Auto-generated method stub
+		return orderRepository.findAllByCompletedOnIsNullOrderByCreatedOn();
 	}
 
 	

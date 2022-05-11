@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,17 +14,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="order_table2")
-public class Order {
+public class Order2 {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
+	
+	@Column(name="name")
+	private String name;
 	
 	@Column(name = "created_on")
 	private LocalDateTime createdOn;
@@ -33,10 +34,8 @@ public class Order {
 	@Column(name = "completed_on")
 	private LocalDateTime completedOn;
 	
-	@ManyToOne(cascade= {CascadeType.DETACH,
-			CascadeType.REFRESH})
-	@JoinColumn(name="plate")
-	private Vehicle vehicle;
+	@Column(name="plate")
+	private String plate;
 	
 	@Column(name="total")
 	private BigDecimal total;
@@ -51,20 +50,25 @@ public class Order {
 	private String comments;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "order_items2",
+    @JoinTable(name = "order_items",
             joinColumns = {@JoinColumn(name = "order_id")},
             inverseJoinColumns = {@JoinColumn(name = "product_id")})
     private List<Product> products;
 	
 	
-	public Order() {
+	public Order2() {
 		this.createdOn = LocalDateTime.now();
 		if (products == null)
             products = new ArrayList<>();
 	}
 
-	public Order(int id) {
+	public Order2(String name) {
+		this.name = name;
+	}
+
+	public Order2(int id, String name) {
 		this.id = id;
+		this.name = name;
 	}
 
 	public int getId() {
@@ -75,12 +79,28 @@ public class Order {
 		this.id = id;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public LocalDateTime getCompletedOn() {
 		return completedOn;
 	}
 
 	public void setCompletedOn() {
 		this.completedOn = LocalDateTime.now();
+	}
+
+	public String getPlate() {
+		return plate;
+	}
+
+	public void setPlate(String plate) {
+		this.plate = plate;
 	}
 
 	public String getPayment() {
@@ -125,14 +145,6 @@ public class Order {
 
 	public void setComments(String comments) {
 		this.comments = comments;
-	}
-
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
-
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
 	}
 
 	

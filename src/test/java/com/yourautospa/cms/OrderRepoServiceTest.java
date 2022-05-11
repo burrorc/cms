@@ -18,7 +18,7 @@ import com.yourautospa.cms.entity.Order;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class OrderServiceImplTest {
+public class OrderRepoServiceTest {
 
 	@Autowired
 	private OrderRepository repository;

@@ -18,7 +18,7 @@ import com.yourautospa.cms.entity.Customer;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class CustomerServiceImplTest {
+public class CustomerRepoServiceTest {
 
 	@Autowired
 	private CustomerRepository repository;

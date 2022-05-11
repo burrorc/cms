@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.yourautospa.cms.entity.Customer;
 import com.yourautospa.cms.entity.Order;
 import com.yourautospa.cms.entity.Product;
-import com.yourautospa.cms.entity.User;
 import com.yourautospa.cms.entity.Vehicle;
 import com.yourautospa.cms.service.OrderService;
 import com.yourautospa.cms.service.ProductService;
@@ -28,8 +27,6 @@ import com.yourautospa.cms.service.VehicleService;
 @RequestMapping("/greeter")
 public class GreeterController {
 	
-	private User theGreeter;
-
 	@Autowired
 	private VehicleService vehicleService;
 
@@ -51,7 +48,16 @@ public class GreeterController {
 	@PostMapping("/addCar")
 	public String saveVehicle(@ModelAttribute("vehicle") Vehicle theVehicle, Model theModel) {
 		String thePlate = theVehicle.getPlate();
-		Order lastOrder = orderService.findFirstByPlateOrderByCreatedOnDesc(thePlate);
+		
+		if(thePlate.equals("GA")) {
+			return "redirect:/greeter/order";
+		}
+		
+		Vehicle tempVehicle = vehicleService.findOrAdd(thePlate);
+		System.out.println("year"+tempVehicle.getYear());
+		//Vehicle foundVehicle = vehicleService.findById(thePlate);
+		Order lastOrder = orderService.findFirstByVehicleOrderByCreatedOnDesc(tempVehicle);
+		
 		String formatedLastDate;
 		if(lastOrder == null) {
 			formatedLastDate = "NO RECORD";
@@ -62,10 +68,8 @@ public class GreeterController {
 		}
 		
         
-		if(thePlate.equals("GA")) {
-			return "redirect:/greeter/order";
-		}
-		Vehicle tempVehicle = vehicleService.findOrAdd(thePlate);
+		
+		
 		Product tempProduct = productService.findById(tempVehicle.getSubscription());
 		
 		Customer theCustomer;
@@ -80,6 +84,7 @@ public class GreeterController {
 		Order theOrder = new Order();
 
 		vehicleService.save(tempVehicle);
+		System.out.println("yearsave"+tempVehicle.getYear());
 		theModel.addAttribute("lastDate", formatedLastDate);
 		theModel.addAttribute(theCustomer);
 		theModel.addAttribute(tempVehicle);

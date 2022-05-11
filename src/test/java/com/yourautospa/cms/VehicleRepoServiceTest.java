@@ -14,12 +14,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.yourautospa.cms.dao.VehicleRepository;
 import com.yourautospa.cms.entity.Vehicle;
-import com.yourautospa.cms.service.VehicleService;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class VehicleServiceImplTest {
+public class VehicleRepoServiceTest {
 
 	@Autowired
 	private VehicleRepository repository;

@@ -20,10 +20,7 @@ public class OrderController {
 	
 	@Autowired
 	private OrderService orderService;
-	
-//	public VehicleController(VehicleService theVehicleService) {
-//		orderService = theVehicleService;
-//	}
+
 	
 	@GetMapping("/list")
 	public String listOrders(Model theModel) {

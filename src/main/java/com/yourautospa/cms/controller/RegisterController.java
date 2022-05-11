@@ -31,7 +31,8 @@ public class RegisterController {
 	
 	@GetMapping("/register")
 	public String home(Model theModel) {
-		List<Order> theOrders = orderService.findAll();
+		//List<Order> theOrders = orderService.findAll();
+		List<Order> theOrders = orderService.findAllByCompletedOnIsNullOrderByCreatedOn();
 		Order theOrder = new Order();
 		Customer theCustomer = new Customer();
 		List<Product> orderProducts = new ArrayList<>();
@@ -47,22 +48,16 @@ public class RegisterController {
 	@GetMapping("/findOrder")
 	public String findOrder(@RequestParam("orderId")int theId,
 							Model theModel){
-		List<Order> theOrders = orderService.findAll();
+		//List<Order> theOrders = orderService.findAll();
+		List<Order> theOrders = orderService.findAllByCompletedOnIsNullOrderByCreatedOn();
 		Order theOrder = orderService.findById(theId);
+		System.out.println("order"+theOrder.getTotal());
 		List<Product> orderProducts = theOrder.getProducts();
-		String thePlate = theOrder.getPlate();
-		Vehicle theVehicle = vehicleService.findById(thePlate);
-		
-		//int customerId = theVehicle.getCustomerId();
-		
+		//String thePlate = theOrder.getPlate();
+		Vehicle theVehicle = theOrder.getVehicle();
+		System.out.println("plate"+theVehicle.getPlate());
 		Customer theCustomer;
-		
-//		if(customerId != 0) {
-//			theCustomer = customerService.findById(customerId);
-//		}else {
-//			theCustomer = new Customer();
-//		}
-		
+				
 		if(theVehicle.getCustomer() == null) {
 			theCustomer = new Customer();
 		}else {
@@ -85,10 +80,6 @@ public class RegisterController {
 	
 	@PostMapping("/completeOrder")
 	public String saveVehicle(@ModelAttribute("currentOrder") Order currentOrder) {
-//		System.out.println("id"+currentOrder.getId());
-//		System.out.println("paid"+currentOrder.getAmountPaid());
-//		System.out.println("payment"+currentOrder.getPayment());
-//		System.out.println("comments"+currentOrder.getComments());
 		Order thisOrder = orderService.findById(currentOrder.getId());
 		thisOrder.setPayment(currentOrder.getPayment());
 		thisOrder.setAmountPaid(currentOrder.getAmountPaid());

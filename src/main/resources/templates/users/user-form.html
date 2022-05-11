@@ -74,8 +74,14 @@
 	class="form-control mb-4 col-4" placeholder="Last Name" oninput="this.value = this.value.toUpperCase()">
 	<input type="text" th:field="*{userName}"
 	class="form-control mb-4 col-4" placeholder="Username">
+	<input th:if="*{password}" type="hidden" th:field="*{password}" />
+	<div th:unless="*{password}">
+	<p style="margin-bottom: 0px; margin-top: -1.25em; color: white" id="message1">Password cannot be left blank</p>
 	<input type="text" th:field="*{password}"
-	class="form-control mb-4 col-4" placeholder="Password">
+	class="form-control mb-4 col-4 thePassword" placeholder="Password">
+	<p style="margin-bottom: 0px; margin-top: -1.25em; color: white" id="message2">Passwords do not match</p>
+	<input type="password" class="form-control mb-4 col-4 confirmPassword" placeholder="Confirm Password">
+	</div>
 	<select th:field="*{roles}" class="form-select">
 		  <option th:value="ROLE_EMPLOYEE" selected th:text="Employee"/>
 		  <option th:value="ROLE_MANAGER" th:text="Manager"/>
@@ -93,7 +99,22 @@
 </div>
  
 </main>    
-		
-
+<script>
+$('form').submit(function(e) {
+	if($('.thePassword').length ==0){
+	return true
+	}
+	if($('.thePassword').val() == null||$('.thePassword').val()==''){
+		$('#message1').css('color', 'red');
+		return false
+	}
+	if ($('.thePassword').val() != $('.confirmPassword').val()) {
+		  $('#message2').css('color', 'red');
+		  return false;
+	  } 
+	});
+	
+	
+</script>
 </body>
 </html>

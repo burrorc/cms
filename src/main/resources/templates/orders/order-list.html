@@ -66,19 +66,17 @@
 		<hr>
 		<a th:href="@{/orders/addForm}"
 			class="btn btnCheckOut btn-sm mb-3"> Add Order</a>
-			<div class="list">
+			<div class="long">
 		<table class="table table-bordered table-striped">
 			<thead class="thead-dark listHead">
 				<tr>
 					<th>Id</th>
-					<th>Name</th>
 					<th>Created On</th>
 					<th>Completed On</th>
 					<th>Plate #</th>
 					<th>Total</th>
 					<th>Paid</th>
 					<th>Type</th>
-					<th>Comments</th>
 					<th>Action</th>
 
 				</tr>
@@ -86,14 +84,12 @@
 			<tbody>
 				<tr th:each="tempOrder : ${orders}">
 					<td th:text="${tempOrder.id}" />
-					<td th:text="${tempOrder.name}" />
 					<td th:text="${tempOrder.createdOn}" />
 					<td th:text="${tempOrder.completedOn}" />
-					<td th:text="${tempOrder.plate}" />
+					<td th:text="${tempOrder.vehicle.plate}" />
 					<td th:text="${tempOrder.total}" />
 					<td th:text="${tempOrder.amountPaid}" />
 					<td th:text="${tempOrder.payment}" />
-					<td th:text="${tempOrder.comments}" />
 					
 					<td>
 						<a th:href="@{/orders/updateForm(orderId=${tempOrder.id})}"

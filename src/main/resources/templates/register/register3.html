@@ -69,10 +69,10 @@
 						<img class="mx-auto d-block" th:unless="${vehicle}"style="margin-top: 2em; height: 15em" th:src="@{/images/washLogo.png}"/>
 							<div th:if="${vehicle}"
 								class="d-flex justify-content-start carDetail">
-								<div class="mx-2" th:text="${vehicle.plate}"/>
-								<div class="mx-2" th:text="${vehicle.make}"/>
-								<div class="mx-2" th:text="${vehicle.model}"/>
-								<div class="mx-2" th:text="${vehicle.year} != 0 ? ${vehicle.year} : ''"/>
+								<div class="mx-2" th:text="${vehicle.plate}">GA123</div>
+								<div class="mx-2" th:text="${vehicle.make}">Ford</div>
+								<div class="mx-2" th:text="${vehicle.model}">Fusion</div>
+								<div class="mx-2" th:text="${vehicle.year}">2012</div>
 							</div>
 							<div th:if="${customer}" class="custDetail"
 								th:object="${customer}">
@@ -184,7 +184,7 @@
                                 <tr class="text-center">
                                     <th>Time</th>
                                     <th>Plate</th>
-                                    <th>Description</th>
+                                    <th>Greeter</th>
                                     <th>Total</th>
                                     <th>Action</th>
                                 </tr>
@@ -193,7 +193,7 @@
                                 <tr th:each="pendingOrder : ${orders}" class="text-center">
                                 	<td th:text="${pendingOrder.createdOn}" />
                                     <td th:text="${pendingOrder.vehicle.plate}" />
-                                    <td th:text="${pendingOrder.vehicle.color} ? ${pendingOrder.vehicle.color}+' '+${pendingOrder.vehicle.make}: 'UNKNOWN'" />
+                                    <td th:text="${pendingOrder.total}" />
                                     <td th:text="${pendingOrder.total}"></td>
                                     <td>
                                         <!-- <a th:href="@{/orders/updateForm(orderId=${tempOrder.id})}" -->
