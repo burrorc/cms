@@ -77,7 +77,7 @@
 	<input th:if="*{password}" type="hidden" th:field="*{password}" />
 	<div th:unless="*{password}">
 	<p style="margin-bottom: 0px; margin-top: -1.25em; color: white" id="message1">Password cannot be left blank</p>
-	<input type="text" th:field="*{password}"
+	<input type="password" th:field="*{password}"
 	class="form-control mb-4 col-4 thePassword" placeholder="Password">
 	<p style="margin-bottom: 0px; margin-top: -1.25em; color: white" id="message2">Passwords do not match</p>
 	<input type="password" class="form-control mb-4 col-4 confirmPassword" placeholder="Confirm Password">

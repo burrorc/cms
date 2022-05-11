@@ -13,7 +13,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.yourautospa.cms.dao.OrderRepository;
+import com.yourautospa.cms.dao.VehicleRepository;
 import com.yourautospa.cms.entity.Order;
+import com.yourautospa.cms.entity.Vehicle;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -22,12 +24,14 @@ public class OrderRepoServiceTest {
 
 	@Autowired
 	private OrderRepository repository;
+	@Autowired
+	private VehicleRepository vehicleRepository;
 
 	
 	@Test
 	public void testFindAll() {
-		Order Order1 = new Order("order1");
-		Order Order2 = new Order("order2");
+		Order Order1 = new Order();
+		Order Order2 = new Order();
 		repository.save(Order1);
 		repository.save(Order2);
 		
@@ -38,7 +42,7 @@ public class OrderRepoServiceTest {
 
 	@Test
 	public void testFindById() {
-		Order Order1 = new Order("order1");
+		Order Order1 = new Order();
 		repository.save(Order1);
 		Optional<Order> foundOrder = repository.findById(Order1.getId());
 		
@@ -47,7 +51,7 @@ public class OrderRepoServiceTest {
 	
 	@Test
 	public void testSave() {
-		Order theOrder = new Order("order1");
+		Order theOrder = new Order();
 		repository.save(theOrder);
 
 		Assertions.assertThat(theOrder.getId()).isGreaterThan(0);
@@ -68,11 +72,13 @@ public class OrderRepoServiceTest {
 	}
 	
 	@Test
-	public void testFindFirstByPlateOrderByCreatedOnDesc() {
-		String thePlate = "XYZ";
+	public void testFindFirstByVehicleOrderByCreatedOnDesc() {
+		Vehicle theVehicle = new Vehicle("XYZ");
+		vehicleRepository.save(theVehicle);
 		Order order1 = new Order();
-		order1.setPlate(thePlate);
+		order1.setVehicle(theVehicle);
 		repository.save(order1);
+		System.out.println(order1.getVehicle());
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
@@ -80,7 +86,7 @@ public class OrderRepoServiceTest {
 			e.printStackTrace();
 		}
 		Order order2 = new Order();
-		order2.setPlate(thePlate);
+		order2.setVehicle(theVehicle);
 		repository.save(order2);
 		try {
 			Thread.sleep(1000);
@@ -89,10 +95,10 @@ public class OrderRepoServiceTest {
 			e.printStackTrace();
 		}
 		Order order3 = new Order();
-		order3.setPlate(thePlate);
+		order3.setVehicle(theVehicle);
 		repository.save(order3);
 		
-		Order foundOrder = repository.findFirstByPlateOrderByCreatedOnDesc(thePlate);
+		Order foundOrder = repository.findFirstByVehicleOrderByCreatedOnDesc(theVehicle);
 		Assertions.assertThat(foundOrder.getId()).isEqualTo(order3.getId());
 	}
 }

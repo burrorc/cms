@@ -62,7 +62,6 @@ public class UserController {
 	
 	String thePassword = theUser.getPassword();
 	if(thePassword.length() < 20) {
-		System.out.println("less than 20");
 		String encodedPassword = bCryptPasswordEncoder.encode(theUser.getPassword());
 		theUser.setPassword(encodedPassword);
 	}

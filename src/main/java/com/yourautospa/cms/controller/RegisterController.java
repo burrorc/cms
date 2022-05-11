@@ -17,17 +17,13 @@ import com.yourautospa.cms.entity.Order;
 import com.yourautospa.cms.entity.Product;
 import com.yourautospa.cms.entity.Vehicle;
 import com.yourautospa.cms.service.OrderService;
-import com.yourautospa.cms.service.VehicleService;
 
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
 	
 	@Autowired
-	private OrderService orderService;
-	@Autowired
-	private VehicleService vehicleService;
-	
+	private OrderService orderService;	
 	
 	@GetMapping("/register")
 	public String home(Model theModel) {
@@ -48,12 +44,11 @@ public class RegisterController {
 	@GetMapping("/findOrder")
 	public String findOrder(@RequestParam("orderId")int theId,
 							Model theModel){
-		//List<Order> theOrders = orderService.findAll();
+
 		List<Order> theOrders = orderService.findAllByCompletedOnIsNullOrderByCreatedOn();
 		Order theOrder = orderService.findById(theId);
 		System.out.println("order"+theOrder.getTotal());
 		List<Product> orderProducts = theOrder.getProducts();
-		//String thePlate = theOrder.getPlate();
 		Vehicle theVehicle = theOrder.getVehicle();
 		System.out.println("plate"+theVehicle.getPlate());
 		Customer theCustomer;

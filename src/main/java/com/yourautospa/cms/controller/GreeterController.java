@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +37,7 @@ public class GreeterController {
 	
 	@GetMapping("/order")
 	public String greeter(Model theModel) {
+		//populate the starting view with a GA vehicle
 		Vehicle theVehicle = new Vehicle();
 		theVehicle.setPlate("GA");
 
@@ -49,13 +49,13 @@ public class GreeterController {
 	public String saveVehicle(@ModelAttribute("vehicle") Vehicle theVehicle, Model theModel) {
 		String thePlate = theVehicle.getPlate();
 		
+		//prevent finger slip
 		if(thePlate.equals("GA")) {
 			return "redirect:/greeter/order";
 		}
 		
+		//find db vehicle and history or create it
 		Vehicle tempVehicle = vehicleService.findOrAdd(thePlate);
-		System.out.println("year"+tempVehicle.getYear());
-		//Vehicle foundVehicle = vehicleService.findById(thePlate);
 		Order lastOrder = orderService.findFirstByVehicleOrderByCreatedOnDesc(tempVehicle);
 		
 		String formatedLastDate;
@@ -67,11 +67,8 @@ public class GreeterController {
 			formatedLastDate = lastDate.format(formated);
 		}
 		
-        
-		
-		
+        //check for sub status
 		Product tempProduct = productService.findById(tempVehicle.getSubscription());
-		
 		Customer theCustomer;
 		
 		if(tempVehicle.getCustomer() == null) {
@@ -80,6 +77,7 @@ public class GreeterController {
 			theCustomer = tempVehicle.getCustomer();
 		}
 		
+		//populate wash/extra items
 		List<Product> tunnelItems = productService.findBySubscriptionFalseAndWashTrueOrExtraTrue();
 		Order theOrder = new Order();
 
@@ -93,14 +91,15 @@ public class GreeterController {
 		theModel.addAttribute(theOrder);
 
 		return "greeter/orderForm";
-
 	}
 
+	
 	@PostMapping("/createOrder")
 	public String createOrder(@ModelAttribute("order") Order theOrder, 
 			@RequestParam(value = "orderItems", required = false) int[] orderItems, 
-			BindingResult bindingResult, Model model) {
+			Model model) {
 		
+		//creates product list for the order from view array
 		if (orderItems != null) {
 			Product product = null;
 			for (int i = 0; i < orderItems.length; i++) {
@@ -108,10 +107,8 @@ public class GreeterController {
 					product = new Product();
 					product.setId(orderItems[i]);
 					theOrder.getProducts().add(product);
-
 				}
-			}
-			
+			}	
 		}
 
 		List<Product> theProducts = theOrder.getProducts();

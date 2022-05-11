@@ -14,24 +14,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class CmsSecurityConfig extends WebSecurityConfigurerAdapter {
-
 	@Autowired
 	private UserDetailsService userDetailService;
-	
 	//THIS IS BCRYPT//
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 	    return new BCryptPasswordEncoder();
 	}
-	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-		
 		auth.userDetailsService(userDetailService);
-		
 	}
-	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
@@ -54,8 +47,6 @@ public class CmsSecurityConfig extends WebSecurityConfigurerAdapter {
 				.logout().permitAll()
 				.and().exceptionHandling().accessDeniedPage("/access-denied");
 	}
-	
-		
 }
 
 
