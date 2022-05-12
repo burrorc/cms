@@ -35,6 +35,7 @@ public class CmsSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/orders/**").hasRole("MANAGER")
 				.antMatchers("/products/**").hasRole("MANAGER")
 				.antMatchers("/css/**").permitAll()
+				.antMatchers("/scripts/**").permitAll()
 				.antMatchers("/images/**").permitAll()
 				.antMatchers("/greeter/**").permitAll()
 				.anyRequest().authenticated()
